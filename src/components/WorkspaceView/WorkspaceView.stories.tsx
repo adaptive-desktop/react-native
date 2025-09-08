@@ -54,7 +54,12 @@ const DynamicWorkspaceDemo = () => {
 
   const [, forceUpdate] = useState({});
 
-  const updatePosition = (x: number, y: number, width: number, height: number) => {
+  const updatePosition = (
+    x: number,
+    y: number,
+    width: number,
+    height: number
+  ) => {
     workspace.updateScreenBounds({ x, y, width, height });
     forceUpdate({}); // Force re-render to show changes
   };
@@ -99,10 +104,7 @@ const DynamicWorkspaceDemo = () => {
         </TouchableOpacity>
       </View>
 
-      <WorkspaceView
-        workspace={workspace}
-        style={styles.workspace}
-      />
+      <WorkspaceView workspace={workspace} style={styles.workspace} />
     </View>
   );
 };

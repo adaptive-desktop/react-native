@@ -63,7 +63,7 @@ describe('useDimensions', () => {
     it('updates dimensions when change event fires', () => {
       let changeHandler: ((dims: any) => void) | undefined;
       const mockRemove = jest.fn();
-      
+
       mockDimensions.addEventListener.mockImplementation((event, handler) => {
         if (event === 'change') {
           changeHandler = handler;
@@ -93,7 +93,7 @@ describe('useDimensions', () => {
     it('handles multiple dimension changes', () => {
       let changeHandler: ((dims: any) => void) | undefined;
       const mockRemove = jest.fn();
-      
+
       mockDimensions.addEventListener.mockImplementation((event, handler) => {
         if (event === 'change') {
           changeHandler = handler;

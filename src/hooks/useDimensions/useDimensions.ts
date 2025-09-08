@@ -13,9 +13,12 @@ export const useDimensions = (): DimensionsHook => {
   }));
 
   useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window, screen }) => {
-      setDimensions({ window, screen });
-    });
+    const subscription = Dimensions.addEventListener(
+      'change',
+      ({ window, screen }) => {
+        setDimensions({ window, screen });
+      }
+    );
 
     return () => subscription?.remove();
   }, []);

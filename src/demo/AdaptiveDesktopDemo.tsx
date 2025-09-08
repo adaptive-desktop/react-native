@@ -1,6 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { WorkspaceFactory, Viewport } from '@adaptive-desktop/adaptive-workspace';
+import {
+  WorkspaceFactory,
+  Viewport,
+} from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from '../components';
 
 export const AdaptiveDesktopDemo: React.FC = () => {
@@ -20,12 +23,9 @@ export const AdaptiveDesktopDemo: React.FC = () => {
     return ws;
   });
 
-
   return (
     <View style={styles.container}>
-        <WorkspaceView
-          workspace={workspace}
-        />
+      <WorkspaceView workspace={workspace} />
     </View>
   );
 };

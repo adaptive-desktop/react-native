@@ -18,29 +18,37 @@ export const WorkspaceView = ({
 }: WorkspaceViewProps) => {
   const safeAreaInsets = useSafeAreaInsets();
 
-  const containerStyle = useMemo(() => [
-    styles.container,
-    {
-      paddingTop: safeAreaInsets.top,
-      paddingBottom: safeAreaInsets.bottom,
-      paddingLeft: safeAreaInsets.left,
-      paddingRight: safeAreaInsets.right,
-    },
-    style,
-  ], [safeAreaInsets, style]);
+  const containerStyle = useMemo(
+    () => [
+      styles.container,
+      {
+        paddingTop: safeAreaInsets.top,
+        paddingBottom: safeAreaInsets.bottom,
+        paddingLeft: safeAreaInsets.left,
+        paddingRight: safeAreaInsets.right,
+      },
+      style,
+    ],
+    [safeAreaInsets, style]
+  );
 
-  const viewports = useMemo(() => workspace.getViewports(), [workspace.screenBounds]);
+  const viewports = useMemo(
+    () => workspace.getViewports(),
+    [workspace.screenBounds]
+  );
 
   return (
     <View style={containerStyle} testID={testID}>
       {viewports.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>No viewports available</Text>
-          <Text style={styles.emptySubtext}>Create a viewport to get started</Text>
+          <Text style={styles.emptySubtext}>
+            Create a viewport to get started
+          </Text>
         </View>
       ) : (
         <View style={styles.viewportsContainer}>
-          {viewports.map((viewport) => {
+          {viewports.map(viewport => {
             const viewportStyle: ViewStyle = {
               position: 'absolute',
               left: viewport.screenBounds.x,
@@ -54,7 +62,9 @@ export const WorkspaceView = ({
 
             return (
               <View key={viewport.id} style={viewportStyle}>
-                <Text style={styles.viewportText}>Viewport: {viewport.id.slice(-6)}</Text>
+                <Text style={styles.viewportText}>
+                  Viewport: {viewport.id.slice(-6)}
+                </Text>
               </View>
             );
           })}

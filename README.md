@@ -1,5 +1,8 @@
 # @adaptive-desktop/react-native
 
+[![codecov](https://codecov.io/gh/adaptive-desktop/react-native/graph/badge.svg?token=BVr2jhrcb4)](https://codecov.io/gh/adaptive-desktop/react-native)
+[![npm version](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native.svg)](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native)
+
 React Native components for building adaptive desktop layouts with flexible workspace management. Built on the framework-agnostic `@adaptive-desktop/adaptive-workspace` core library.
 
 ## Features
@@ -38,11 +41,7 @@ yarn add react-native-safe-area-context
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
-  return (
-    <SafeAreaProvider>
-      {/* Your app content */}
-    </SafeAreaProvider>
-  );
+  return <SafeAreaProvider>{/* Your app content */}</SafeAreaProvider>;
 }
 ```
 
@@ -103,10 +102,11 @@ interface WorkspaceViewProps {
   workspace={workspace}
   style={{ backgroundColor: '#808080' }}
   testID="workspace-view"
-/>
+/>;
 ```
 
 **Props:**
+
 - `workspace` - The workspace instance from `@adaptive-desktop/adaptive-workspace`
 - `style` - Optional React Native ViewStyle for custom styling
 - `testID` - Optional test identifier for testing
@@ -122,7 +122,9 @@ const MyComponent = () => {
   const dimensions = useDimensions();
 
   return (
-    <Text>Screen: {dimensions.width}x{dimensions.height}</Text>
+    <Text>
+      Screen: {dimensions.width}x{dimensions.height}
+    </Text>
   );
 };
 ```
@@ -138,7 +140,7 @@ const updateWorkspacePosition = () => {
     x: 100,
     y: 100,
     width: 600,
-    height: 400
+    height: 400,
   });
 };
 ```
@@ -156,6 +158,7 @@ export default function App() {
 ```
 
 The demo demonstrates:
+
 - Basic workspace creation and viewport management
 - Automatic re-rendering on workspace changes
 - Safe area handling for mobile devices
@@ -166,12 +169,14 @@ The demo demonstrates:
 This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.4.0:
 
 ### Core Integration Pattern
+
 1. **Workspace Creation**: Use `WorkspaceFactory.create()` to create workspace instances
 2. **Component Integration**: Pass workspace to `WorkspaceView` component
 3. **Automatic Updates**: Component watches `workspace.screenBounds` for re-rendering
 4. **Safe Area Handling**: Built-in support for device safe areas
 
 ### Key Features
+
 - **Framework Agnostic Core**: Built on the universal `@adaptive-desktop/adaptive-workspace` library
 - **React Native Optimized**: Proper integration with React Native's rendering and safe areas
 - **Type Safe**: 100% TypeScript with comprehensive type definitions
@@ -184,6 +189,7 @@ This library provides React Native components that integrate with `@adaptive-des
 The project supports two modes: **Demo mode** (default) and **Storybook mode**.
 
 **Demo Mode (Basic workspace functionality):**
+
 ```sh
 yarn start              # Start demo on all platforms
 yarn demo               # Same as yarn start
@@ -193,6 +199,7 @@ yarn demo:web           # Start demo on web
 ```
 
 **Storybook Mode (Component development and testing):**
+
 ```sh
 yarn storybook          # Start Storybook on all platforms
 yarn storybook:android  # Start Storybook on Android
@@ -217,6 +224,7 @@ yarn test:coverage        # Run with coverage report
 ```
 
 **Test Structure:**
+
 ```
 src/
 ├── components/
