@@ -15,6 +15,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,7 +28,7 @@ jobs:
         run: |
           if [ -f "yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
-            echo "command=yarn install --frozen-lockfile" >> $GITHUB_OUTPUT
+            echo "command=yarn install --immutable" >> $GITHUB_OUTPUT
             echo "runner=yarn" >> $GITHUB_OUTPUT
           elif [ -f "pnpm-lock.yaml" ]; then
             echo "manager=pnpm" >> $GITHUB_OUTPUT
