@@ -1,0 +1,91 @@
+name: Codecov AI Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  codecov-ai-review:
+    if: github.event_name == 'pull_request' || (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@codecov-ai-reviewer'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Use Node.js 20.11.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+
+      - name: Detect package manager
+        id: detect-pm
+        run: |
+          if [ -f "yarn.lock" ]; then
+            echo "manager=yarn" >> $GITHUB_OUTPUT
+            echo "command=yarn install --immutable" >> $GITHUB_OUTPUT
+            echo "runner=yarn" >> $GITHUB_OUTPUT
+          elif [ -f "pnpm-lock.yaml" ]; then
+            echo "manager=pnpm" >> $GITHUB_OUTPUT
+            echo "command=pnpm install --frozen-lockfile" >> $GITHUB_OUTPUT
+            echo "runner=pnpm" >> $GITHUB_OUTPUT
+          elif [ -f "package-lock.json" ]; then
+            echo "manager=npm" >> $GITHUB_OUTPUT
+            echo "command=npm install" >> $GITHUB_OUTPUT
+            echo "runner=npm run" >> $GITHUB_OUTPUT
+          else
+            echo "❌ No lock file found!"
+            exit 1
+          fi
+
+      - name: Setup package manager cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+          cache: ${{ steps.detect-pm.outputs.manager }}
+
+      - name: Install dependencies
+        run: ${{ steps.detect-pm.outputs.command }}
+
+      - name: Run tests with coverage
+        run: ${{ steps.detect-pm.outputs.runner }} test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          slug: adaptive-desktop/react-native
+          fail_ci_if_error: false
+
+      - name: Comment PR with Codecov AI commands
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🤖 Codecov AI Assistant
+
+            Hi! I'm the Codecov AI assistant. I can help you with:
+
+            - **Code Review**: Comment \`@codecov-ai-reviewer review\` to get AI-powered code review suggestions
+            - **Test Generation**: Comment \`@codecov-ai-reviewer test\` to generate tests for uncovered code
+
+            These commands will analyze your pull request and provide helpful insights to improve code quality and coverage.
+
+            > **Note**: Make sure the [Codecov AI GitHub App](https://github.com/apps/codecov-ai) is installed on this repository for these commands to work.`
+            })
