@@ -158,6 +158,122 @@ const styles = StyleSheet.create({
   },
 });
 
+export const HalfWorkspace: Story = {
+  render: () => {
+    const workspace = WorkspaceFactory.create({
+      x: 0,
+      y: 0,
+      width: 800,
+      height: 600,
+    });
+
+    // Create viewport that takes up left half of workspace
+    workspace.createViewport({
+      x: 0, // Start at left edge
+      y: 0, // Start at top edge
+      width: 0.5, // Take up 50% of workspace width
+      height: 1, // Take up full workspace height
+    });
+
+    const viewport = workspace.getViewports()[0];
+
+    return (
+      <View style={halfWorkspaceStyles.container}>
+        <Text style={halfWorkspaceStyles.title}>Half Workspace Demo</Text>
+        <Text style={halfWorkspaceStyles.description}>
+          Workspace (gray) with viewport (blue) taking up left half
+        </Text>
+
+        {/* Workspace container with gray background */}
+        <View style={halfWorkspaceStyles.workspaceContainer}>
+          {/* Viewport with blue background */}
+          <View
+            style={[
+              halfWorkspaceStyles.viewport,
+              {
+                left: viewport.screenBounds.x,
+                top: viewport.screenBounds.y,
+                width: viewport.screenBounds.width,
+                height: viewport.screenBounds.height,
+              },
+            ]}
+          >
+            <View style={halfWorkspaceStyles.viewportContent}>
+              <Text style={halfWorkspaceStyles.viewportTitle}>Viewport</Text>
+              <Text style={halfWorkspaceStyles.viewportText}>
+                ID: {viewport.id.slice(-6)}
+              </Text>
+              <Text style={halfWorkspaceStyles.viewportText}>
+                Size: {viewport.screenBounds.width} ×{' '}
+                {viewport.screenBounds.height}
+              </Text>
+              <Text style={halfWorkspaceStyles.viewportText}>
+                50% of workspace width
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  },
+};
+
+const halfWorkspaceStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+    padding: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textAlign: 'center',
+    color: '#333',
+  },
+  description: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  workspaceContainer: {
+    width: 800,
+    height: 600,
+    backgroundColor: '#808080', // Gray workspace background
+    borderWidth: 2,
+    borderColor: '#666',
+    position: 'relative',
+    alignSelf: 'center',
+  },
+  viewport: {
+    position: 'absolute',
+    backgroundColor: '#3b82f6', // Blue viewport background
+    borderWidth: 2,
+    borderColor: '#1d4ed8',
+    borderRadius: 4,
+  },
+  viewportContent: {
+    flex: 1,
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewportTitle: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  viewportText: {
+    color: '#e5e7eb',
+    fontSize: 12,
+    textAlign: 'center',
+    marginBottom: 2,
+  },
+});
+
 export const DynamicPosition: Story = {
   render: () => <DynamicWorkspaceDemo />,
 };

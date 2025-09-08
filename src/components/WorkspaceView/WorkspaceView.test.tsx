@@ -125,6 +125,36 @@ describe('WorkspaceView', () => {
       const viewportElements = screen.getAllByText(/Viewport:/);
       expect(viewportElements).toHaveLength(2);
     });
+
+    it('creates viewport that takes up half the workspace', () => {
+      const workspace = WorkspaceFactory.create({
+        x: 0,
+        y: 0,
+        width: 800,
+        height: 600,
+      });
+
+      // Create viewport with proportional bounds for half the workspace (left half)
+      const halfViewport = workspace.createViewport({
+        x: 0, // Start at left edge
+        y: 0, // Start at top edge
+        width: 0.5, // Take up 50% of workspace width
+        height: 1, // Take up full workspace height
+      });
+
+      renderWorkspaceView(workspace);
+
+      // Verify viewport exists
+      expect(screen.getByText(/Viewport:/)).toBeTruthy();
+
+      // Verify the viewport has the correct screen bounds (half the workspace)
+      expect(halfViewport.screenBounds).toEqual({
+        x: 0,
+        y: 0,
+        width: 400, // 50% of 800
+        height: 600, // 100% of 600
+      });
+    });
   });
 
   describe('Error Handling', () => {
