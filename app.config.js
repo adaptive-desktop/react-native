@@ -1,7 +1,7 @@
 export default ({ config }) => ({
   ...config,
-  name: 'Component Template',
-  slug: 'component-template',
+  name: 'Adaptive Desktop React Native',
+  slug: 'adaptive-desktop-react-native',
   version: '0.1.0',
   main: 'node_modules/expo/AppEntry.js',
   orientation: 'portrait',
@@ -10,21 +10,21 @@ export default ({ config }) => ({
   splash: {
     image: './assets/splash.png',
     resizeMode: 'contain',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e1e1e',
   },
   updates: {
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ['**/*'],
   ios: {
-    bundleIdentifier: 'com.zestic.componenttemplate',
+    bundleIdentifier: 'com.adaptivedesktop.reactnative',
     supportsTablet: true,
   },
   android: {
-    package: 'com.zestic.component_template',
+    package: 'com.adaptivedesktop.reactnative',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#1e1e1e',
     },
   },
   web: {

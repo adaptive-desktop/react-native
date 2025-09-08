@@ -1,26 +1,26 @@
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AdaptiveDesktopDemo } from './src/demo/AdaptiveDesktopDemo';
 
 function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <SafeAreaProvider>
+      <AdaptiveDesktopDemo />
+    </SafeAreaProvider>
   );
 }
 
 let AppEntryPoint = App;
 
-if (true) {
+// Use environment variable to switch between demo and storybook
+// To enable Storybook, set STORYBOOK_ENABLED=true in your environment
+// You can do this by:
+// 1. Setting it in your shell: export STORYBOOK_ENABLED=true && npm start
+// 2. Or modify this condition to suit your needs
+const isStorybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
+
+if (isStorybookEnabled) {
+  // @ts-ignore - Dynamic require for storybook
   AppEntryPoint = require('./.rnstorybook').default;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default AppEntryPoint;

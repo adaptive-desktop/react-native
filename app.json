@@ -1,4 +1,6 @@
 {
-  "name": "storybook-component",
-  "slug": "storybook-component"
+  "name": "adaptive-desktop-react-native",
+  "slug": "adaptive-desktop-react-native",
+  "displayName": "Adaptive Desktop React Native",
+  "description": "React Native components for building VS Code-style adaptive desktop layouts"
 }

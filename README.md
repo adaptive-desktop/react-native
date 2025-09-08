@@ -1,180 +1,234 @@
-# React Native Expo Component Template
+# @adaptive-desktop/react-native
 
-A comprehensive starter template for creating React Native component libraries with Expo, pre-configured with Storybook, Builder Bob, and testing infrastructure.
-
-![picture of storybook](https://github.com/user-attachments/assets/cf98766d-8b90-44ab-b718-94ab16e63205)
+React Native components for building adaptive desktop layouts with flexible workspace management. Built on the framework-agnostic `@adaptive-desktop/adaptive-workspace` core library.
 
 ## Features
 
-This template comes pre-configured with:
+- **🏗️ Viewport-Based Layout** - Simple workspace management with direct viewport control
+- **📱 React Native Optimized** - Native performance with proper safe area handling
+- **🎯 Framework Integration** - Clean React Native wrapper for the adaptive-workspace core
+- **⚡ Responsive Updates** - Automatic re-rendering when workspace bounds change
+- **🧪 Fully Tested** - 100% test coverage with comprehensive test suite
+- **📦 TypeScript First** - Complete type safety and IntelliSense support
+- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.4.0
 
-- **📱 Expo** - Modern React Native development platform
-- **📚 Storybook** - Component development and documentation (both on-device and web)
-- **🔨 Builder Bob** - Library build tool for React Native packages
-- **🧪 Testing** - Jest and React Native Testing Library setup
-- **📦 TypeScript** - Full TypeScript support
-- **✨ Prettier** - Code formatting and style consistency
-- **🎨 Example Components** - Sample Button component with stories and tests
-
-## Getting Started
-
-### Installation
-
-1. **Clone or use this template:**
-
-   ```sh
-   git clone https://github.com/zestic/react-native-expo-component-template.git my-component-library
-   cd my-component-library
-   ```
-
-2. **Install dependencies:**
-
-   ```sh
-   # npm
-   npm install
-
-   # yarn
-   yarn install
-
-   # pnpm
-   pnpm install
-   ```
-
-3. **Commit your lock file:**
-   ```sh
-   git add package-lock.json  # or yarn.lock / pnpm-lock.yaml
-   git commit -m "Add lock file for reproducible builds"
-   ```
-
-4. **Update package.json:**
-   - Change the `name` field to your library name
-   - Update `version`, `description`, and other metadata
-   - Update the repository URL and author information
-
-> **📦 Package Manager Choice:** This template works with npm, yarn, or pnpm. Choose your preferred package manager and use it consistently throughout your project. The examples below show commands for all three - use whichever you prefer.
-
-> **🔒 Lock Files Required:** The CI workflows require a lock file to be committed for reproducible builds. After running your first `install` command, make sure to commit the generated lock file (`package-lock.json`, `yarn.lock`, or `pnpm-lock.yaml`).
-
-### Development
-
-#### Running the Expo App
-
-Start the Expo development server:
+## Installation
 
 ```sh
-# npm
-npm start
-
-# yarn
-yarn start
-
-# pnpm
-pnpm start
+npm install @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
+# or
+yarn add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
+# or
+pnpm add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
 ```
 
-#### Storybook Development
-
-This template supports both on-device and web Storybook:
-
-**On-Device Storybook:**
+### Required Peer Dependencies
 
 ```sh
-# Start on-device storybook
-npm run storybook        # or: yarn storybook / pnpm storybook
-
-# iOS specific
-npm run storybook:ios    # or: yarn storybook:ios / pnpm storybook:ios
-
-# Android specific
-npm run storybook:android # or: yarn storybook:android / pnpm storybook:android
+npm install react-native-safe-area-context
+# or
+yarn add react-native-safe-area-context
 ```
 
-**Web Storybook:**
+### Setup
+
+**Wrap your app with SafeAreaProvider:**
+
+```tsx
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      {/* Your app content */}
+    </SafeAreaProvider>
+  );
+}
+```
+
+## Quick Start
+
+```tsx
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
+import { WorkspaceView } from '@adaptive-desktop/react-native';
+
+const MyApp = () => {
+  const dimensions = Dimensions.get('window');
+
+  const [workspace] = useState(() => {
+    const ws = WorkspaceFactory.create({
+      x: 0,
+      y: 0,
+      width: dimensions.width,
+      height: dimensions.height,
+    });
+
+    // Create initial viewport
+    ws.createViewport();
+
+    return ws;
+  });
+
+  return (
+    <View style={styles.container}>
+      <WorkspaceView workspace={workspace} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1e1e1e',
+  },
+});
+```
+
+## API Reference
+
+### WorkspaceView
+
+The main component that renders workspace viewports:
+
+```tsx
+interface WorkspaceViewProps {
+  workspace: WorkspaceInterface;
+  style?: ViewStyle;
+  testID?: string;
+}
+
+<WorkspaceView
+  workspace={workspace}
+  style={{ backgroundColor: '#808080' }}
+  testID="workspace-view"
+/>
+```
+
+**Props:**
+- `workspace` - The workspace instance from `@adaptive-desktop/adaptive-workspace`
+- `style` - Optional React Native ViewStyle for custom styling
+- `testID` - Optional test identifier for testing
+
+### useDimensions Hook
+
+Hook for tracking device dimension changes:
+
+```tsx
+import { useDimensions } from '@adaptive-desktop/react-native';
+
+const MyComponent = () => {
+  const dimensions = useDimensions();
+
+  return (
+    <Text>Screen: {dimensions.width}x{dimensions.height}</Text>
+  );
+};
+```
+
+## Dynamic Workspace Updates
+
+The WorkspaceView automatically re-renders when workspace bounds change:
+
+```tsx
+const updateWorkspacePosition = () => {
+  // This will automatically trigger a re-render of WorkspaceView
+  workspace.updateScreenBounds({
+    x: 100,
+    y: 100,
+    width: 600,
+    height: 400
+  });
+};
+```
+
+## Demo Application
+
+The project includes a demo showing basic workspace functionality:
+
+```tsx
+import { AdaptiveDesktopDemo } from '@adaptive-desktop/react-native';
+
+export default function App() {
+  return <AdaptiveDesktopDemo />;
+}
+```
+
+The demo demonstrates:
+- Basic workspace creation and viewport management
+- Automatic re-rendering on workspace changes
+- Safe area handling for mobile devices
+- Integration with `@adaptive-desktop/adaptive-workspace` v0.4.0
+
+## Architecture
+
+This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.4.0:
+
+### Core Integration Pattern
+1. **Workspace Creation**: Use `WorkspaceFactory.create()` to create workspace instances
+2. **Component Integration**: Pass workspace to `WorkspaceView` component
+3. **Automatic Updates**: Component watches `workspace.screenBounds` for re-rendering
+4. **Safe Area Handling**: Built-in support for device safe areas
+
+### Key Features
+- **Framework Agnostic Core**: Built on the universal `@adaptive-desktop/adaptive-workspace` library
+- **React Native Optimized**: Proper integration with React Native's rendering and safe areas
+- **Type Safe**: 100% TypeScript with comprehensive type definitions
+- **Test Coverage**: 100% test coverage with co-located test structure
+
+## Development
+
+### Running the Demo
+
+The project supports two modes: **Demo mode** (default) and **Storybook mode**.
+
+**Demo Mode (Basic workspace functionality):**
+```sh
+yarn start              # Start demo on all platforms
+yarn demo               # Same as yarn start
+yarn demo:android       # Start demo on Android
+yarn demo:ios           # Start demo on iOS
+yarn demo:web           # Start demo on web
+```
+
+**Storybook Mode (Component development and testing):**
+```sh
+yarn storybook          # Start Storybook on all platforms
+yarn storybook:android  # Start Storybook on Android
+yarn storybook:ios      # Start Storybook on iOS
+yarn storybook:web      # Start Storybook on web
+```
+
+### Building
 
 ```sh
-# Start web storybook
-npm run storybook:web    # or: yarn storybook:web / pnpm storybook:web
-
-# Build web storybook
-npm run storybook:build  # or: yarn storybook:build / pnpm storybook:build
+yarn library:build    # Build the library
+yarn library:verify   # Verify the build
 ```
 
-If you add new stories, update the story loader:
+### Testing
+
+The project has **100% test coverage** with co-located test structure:
 
 ```sh
-npm run storybook:generate # or: yarn storybook:generate / pnpm storybook:generate
+yarn test                 # Run tests
+yarn test:coverage        # Run with coverage report
 ```
 
-#### Building Your Library
-
-Build the library for distribution:
-
-```sh
-npm run library:build     # or: yarn library:build / pnpm library:build
-```
-
-Verify the build:
-
-```sh
-npm run library:verify    # or: yarn library:verify / pnpm library:verify
-```
-
-#### Testing
-
-Run tests:
-
-```sh
-# Run all tests
-npm test                  # or: yarn test / pnpm test
-
-# Run tests in watch mode
-npm run test:watch        # or: yarn test:watch / pnpm test:watch
-
-# Run tests with coverage
-npm run test:coverage     # or: yarn test:coverage / pnpm test:coverage
-```
-
-#### Code Formatting
-
-Format your code with Prettier:
-
-```sh
-# Format all files
-npm run format            # or: yarn format / pnpm format
-
-# Check if files are formatted correctly
-npm run format:check      # or: yarn format:check / pnpm format:check
-
-# Format specific files (useful for pre-commit hooks)
-npm run format:staged <file1> <file2>  # or: yarn format:staged / pnpm format:staged
-```
-
-## Project Structure
-
+**Test Structure:**
 ```
 src/
-├── components/          # Your component library
-│   └── Button/         # Example component
-│       ├── Button.tsx
-│       ├── Button.stories.tsx
-│       └── __tests__/
-│           └── Button.test.tsx
-└── index.tsx           # Main library export
+├── components/
+│   └── WorkspaceView/
+│       ├── WorkspaceView.tsx
+│       ├── WorkspaceView.test.tsx  ✅
+│       └── WorkspaceView.stories.tsx
+└── hooks/
+    └── useDimensions/
+        ├── useDimensions.ts
+        └── useDimensions.test.ts   ✅
 ```
-
-## Creating New Components
-
-1. Create a new component directory in `src/components/`
-2. Add your component implementation
-3. Create Storybook stories for documentation and testing
-4. Write unit tests
-5. Export your component from `src/index.tsx`
-
-## Publishing
-
-1. Build your library: `npm run library:build` (or `yarn library:build` / `pnpm library:build`)
-2. Update version in `package.json`
-3. Publish to npm: `npm publish`
 
 ## Contributing
 
@@ -183,3 +237,7 @@ src/
 3. Add tests for your changes
 4. Ensure all tests pass
 5. Submit a pull request
+
+## License
+
+Apache-2.0
