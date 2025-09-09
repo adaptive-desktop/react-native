@@ -3,10 +3,13 @@ import { render, screen } from '@testing-library/react-native';
 import { Text } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { ViewportView } from './ViewportView';
+import { createWorkspaceConfig } from '../../utils';
 
 describe('ViewportView', () => {
   const createTestViewport = (x = 0, y = 0, width = 400, height = 300) => {
-    const workspace = WorkspaceFactory.create({ x, y, width, height });
+    const workspace = WorkspaceFactory.create(
+      createWorkspaceConfig({ x, y, width, height })
+    );
     return workspace.createViewport();
   };
 
@@ -108,12 +111,14 @@ describe('ViewportView', () => {
 
   describe('Integration', () => {
     it('works with workspace-created viewports', () => {
-      const workspace = WorkspaceFactory.create({
-        x: 50,
-        y: 25,
-        width: 800,
-        height: 600,
-      });
+      const workspace = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 50,
+          y: 25,
+          width: 800,
+          height: 600,
+        })
+      );
 
       const viewport = workspace.createViewport();
 
@@ -140,12 +145,14 @@ describe('ViewportView', () => {
     });
 
     it('updates viewport position when workspace bounds change', () => {
-      const workspace = WorkspaceFactory.create({
-        x: 0,
-        y: 0,
-        width: 800,
-        height: 600,
-      });
+      const workspace = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 0,
+          y: 0,
+          width: 800,
+          height: 600,
+        })
+      );
 
       const viewport = workspace.createViewport();
 
@@ -195,12 +202,14 @@ describe('ViewportView', () => {
     });
 
     it('handles multiple viewport position updates', () => {
-      const workspace = WorkspaceFactory.create({
-        x: 0,
-        y: 0,
-        width: 600,
-        height: 400,
-      });
+      const workspace = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 0,
+          y: 0,
+          width: 600,
+          height: 400,
+        })
+      );
 
       const viewport = workspace.createViewport();
 

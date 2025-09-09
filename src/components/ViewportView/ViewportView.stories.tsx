@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { ViewportView } from './ViewportView';
+import { createWorkspaceConfig } from '../../utils';
 
 const meta: Meta<typeof ViewportView> = {
   title: 'Components/ViewportView',
@@ -17,12 +18,14 @@ type Story = StoryObj<typeof meta>;
 
 // Create a static viewport for the stories
 const createStaticViewport = (x = 0, y = 0, width = 400, height = 300) => {
-  const workspace = WorkspaceFactory.create({
-    x: 0,
-    y: 0,
-    width: 800,
-    height: 600,
-  });
+  const workspace = WorkspaceFactory.create(
+    createWorkspaceConfig({
+      x: 0,
+      y: 0,
+      width: 800,
+      height: 600,
+    })
+  );
 
   // Create viewport with specific bounds
   return workspace.createViewport({
@@ -199,12 +202,14 @@ const styles = StyleSheet.create({
 // Dynamic viewport demo that shows how viewport positions change when workspace bounds change
 const DynamicViewportDemo = () => {
   const [workspace] = useState(() => {
-    const ws = WorkspaceFactory.create({
-      x: 50,
-      y: 50,
-      width: 600,
-      height: 400,
-    });
+    const ws = WorkspaceFactory.create(
+      createWorkspaceConfig({
+        x: 50,
+        y: 50,
+        width: 600,
+        height: 400,
+      })
+    );
 
     // Create initial viewport
     ws.createViewport();

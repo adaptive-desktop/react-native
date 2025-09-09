@@ -13,7 +13,7 @@ React Native components for building adaptive desktop layouts with flexible work
 - **⚡ Responsive Updates** - Automatic re-rendering when workspace bounds change
 - **🧪 Fully Tested** - 100% test coverage with comprehensive test suite
 - **📦 TypeScript First** - Complete type safety and IntelliSense support
-- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.4.0
+- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.5.0
 
 ## Installation
 
@@ -51,18 +51,23 @@ export default function App() {
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
-import { WorkspaceView } from '@adaptive-desktop/react-native';
+import {
+  WorkspaceView,
+  createWorkspaceConfig,
+} from '@adaptive-desktop/react-native';
 
 const MyApp = () => {
   const dimensions = Dimensions.get('window');
 
   const [workspace] = useState(() => {
-    const ws = WorkspaceFactory.create({
-      x: 0,
-      y: 0,
-      width: dimensions.width,
-      height: dimensions.height,
-    });
+    const ws = WorkspaceFactory.create(
+      createWorkspaceConfig({
+        x: 0,
+        y: 0,
+        width: dimensions.width,
+        height: dimensions.height,
+      })
+    );
 
     // Create initial viewport
     ws.createViewport();
@@ -110,6 +115,24 @@ interface WorkspaceViewProps {
 - `workspace` - The workspace instance from `@adaptive-desktop/adaptive-workspace`
 - `style` - Optional React Native ViewStyle for custom styling
 - `testID` - Optional test identifier for testing
+
+### ID Generator Configuration
+
+Starting with `@adaptive-desktop/adaptive-workspace` v0.5.0, an ID generator is required for creating workspaces. This library provides a convenient helper that uses `react-native-uuid`:
+
+```tsx
+import { createWorkspaceConfig } from '@adaptive-desktop/react-native';
+
+// Use createWorkspaceConfig instead of passing bounds directly
+const workspace = WorkspaceFactory.create(
+  createWorkspaceConfig({
+    x: 0,
+    y: 0,
+    width: 800,
+    height: 600,
+  })
+);
+```
 
 ### useDimensions Hook
 
@@ -162,11 +185,11 @@ The demo demonstrates:
 - Basic workspace creation and viewport management
 - Automatic re-rendering on workspace changes
 - Safe area handling for mobile devices
-- Integration with `@adaptive-desktop/adaptive-workspace` v0.4.0
+- Integration with `@adaptive-desktop/adaptive-workspace` v0.5.0
 
 ## Architecture
 
-This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.4.0:
+This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.5.0:
 
 ### Core Integration Pattern
 

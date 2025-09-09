@@ -17,13 +17,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@adaptive-desktop/adaptive-workspace@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@adaptive-desktop/adaptive-workspace@npm:0.4.0"
+"@adaptive-desktop/adaptive-workspace@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@adaptive-desktop/adaptive-workspace@npm:0.5.0"
   dependencies:
     tslib: "npm:^2.6.0"
     ulid: "npm:^3.0.1"
-  checksum: 10c0/14ae175c978c52782dab7a8257a457ad42c7ef44b528326e887b43312d39d0d187318d3a8b20a5890421ac053508e3c41e4e59a2764b2002804e24354f6c36a0
+  checksum: 10c0/edb391d820c9a4d2f6d4a29e6bc43d95dcb2147c49a9de9f72b8bd55a67fc0867d66e6c3e2eaa1c7b79ca2faf20896e0f3597183c76a3d5aeb4b188390e39a07
   languageName: node
   linkType: hard
 
@@ -31,7 +31,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@adaptive-desktop/react-native@workspace:."
   dependencies:
-    "@adaptive-desktop/adaptive-workspace": "npm:^0.4.0"
+    "@adaptive-desktop/adaptive-workspace": "npm:^0.5.0"
     "@babel/core": "npm:^7.24.0"
     "@babel/preset-env": "npm:^7.25.4"
     "@babel/runtime": "npm:^7.25.0"
@@ -53,7 +53,9 @@ __metadata:
     "@testing-library/jest-native": "npm:^5.4.3"
     "@testing-library/react-native": "npm:^13.3.3"
     "@types/jest": "npm:^30.0.0"
-    "@types/react": "npm:~19.0.10"
+    "@types/react": "npm:^19"
+    "@types/react-dom": "npm:^19"
+    "@types/react-test-renderer": "npm:^19"
     babel-plugin-react-docgen-typescript: "npm:^1.5.1"
     babel-preset-expo: "npm:~13.0.0"
     expo: "npm:~53.0.22"
@@ -68,8 +70,8 @@ __metadata:
     metro-core: "npm:^0.82.0"
     metro-transform-plugins: "npm:^0.82.0"
     prettier: "npm:^3.6.2"
-    react: "npm:19.1.1"
-    react-dom: "npm:19.1.1"
+    react: "npm:19.0.0"
+    react-dom: "npm:19.0.0"
     react-native: "npm:0.79.6"
     react-native-builder-bob: "npm:^0.40.13"
     react-native-gesture-handler: "npm:~2.24.0"
@@ -77,9 +79,10 @@ __metadata:
     react-native-reanimated: "npm:~3.17.4"
     react-native-safe-area-context: "npm:5.4.0"
     react-native-svg: "npm:15.11.2"
+    react-native-uuid: "npm:^2.0.3"
     react-native-vector-icons: "npm:^10.0.0"
     react-native-web: "npm:^0.20.0"
-    react-test-renderer: "npm:^19.1.1"
+    react-test-renderer: "npm:19.0.0"
     storybook: "npm:^9"
     typescript: "npm:~5.8.3"
     vite: "npm:^6.3.5"
@@ -3916,12 +3919,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:~19.0.10":
-  version: 19.0.14
-  resolution: "@types/react@npm:19.0.14"
+"@types/react-dom@npm:^19":
+  version: 19.1.9
+  resolution: "@types/react-dom@npm:19.1.9"
+  peerDependencies:
+    "@types/react": ^19.0.0
+  checksum: 10c0/34c8dda86c1590b3ef0e7ecd38f9663a66ba2dd69113ba74fb0adc36b83bbfb8c94c1487a2505282a5f7e5e000d2ebf36f4c0fd41b3b672f5178fd1d4f1f8f58
+  languageName: node
+  linkType: hard
+
+"@types/react-test-renderer@npm:^19":
+  version: 19.1.0
+  resolution: "@types/react-test-renderer@npm:19.1.0"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/799654e430df10aeaf267d71507fb64ec151359ead7e3774111bfd4abce7e0911dba461811195c06c22a6d17496ea92537d3185320ff4112fe29954cad1b9152
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*, @types/react@npm:^19":
+  version: 19.1.12
+  resolution: "@types/react@npm:19.1.12"
   dependencies:
     csstype: "npm:^3.0.2"
-  checksum: 10c0/e5d9ac42fc6d66c21b7020c8ae1a8190c486e63e5daf2f67b67694dd39c6264cc92a57f90b84525bf73774b90f91bd3b1d907022bcc9b36d6d4ffbcf001f8feb
+  checksum: 10c0/e35912b43da0caaab5252444bab87a31ca22950cde2822b3b3dc32e39c2d42dad1a4cf7b5dde9783aa2d007f0b2cba6ab9563fc6d2dbcaaa833b35178118767c
   languageName: node
   linkType: hard
 
@@ -9517,7 +9538,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.1.1, react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
+"react-dom@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react-dom@npm:19.0.0"
+  dependencies:
+    scheduler: "npm:^0.25.0"
+  peerDependencies:
+    react: ^19.0.0
+  checksum: 10c0/a36ce7ab507b237ae2759c984cdaad4af4096d8199fb65b3815c16825e5cfeb7293da790a3fc2184b52bfba7ba3ff31c058c01947aff6fd1a3701632aabaa6a9
+  languageName: node
+  linkType: hard
+
+"react-dom@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.1.1
   resolution: "react-dom@npm:19.1.1"
   dependencies:
@@ -9542,7 +9574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^19.1.1":
+"react-is@npm:^19.0.0":
   version: 19.1.1
   resolution: "react-is@npm:19.1.1"
   checksum: 10c0/3dba763fcd69835ae263dcd6727d7ffcc44c1d616f04b7329e67aefdc66a567af4f8dcecdd29454c7a707c968aa1eb85083a83fb616f01675ef25e71cf082f97
@@ -9715,6 +9747,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-uuid@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "react-native-uuid@npm:2.0.3"
+  checksum: 10c0/d94bccc28936c2dea081ab404f90b0c968092013af4d428b8e74bf407d6098ad5410914f77a903ad1296cce364fc85d27d8dfd70d22ec48d8cf1b7edc8803a8d
+  languageName: node
+  linkType: hard
+
 "react-native-vector-icons@npm:^10.0.0":
   version: 10.3.0
   resolution: "react-native-vector-icons@npm:10.3.0"
@@ -9815,19 +9854,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-test-renderer@npm:^19.1.1":
-  version: 19.1.1
-  resolution: "react-test-renderer@npm:19.1.1"
+"react-test-renderer@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react-test-renderer@npm:19.0.0"
   dependencies:
-    react-is: "npm:^19.1.1"
-    scheduler: "npm:^0.26.0"
+    react-is: "npm:^19.0.0"
+    scheduler: "npm:^0.25.0"
   peerDependencies:
-    react: ^19.1.1
-  checksum: 10c0/430636d63cff6b79a15fe876d16601891fcdf1c58236471063f4cfe50de2c9fae935c6894eebe6ca5be0bf7245cb572c14ff69e1aada7761b41c73c842e2879c
+    react: ^19.0.0
+  checksum: 10c0/67c34dae4d3a60b9306d2b5cb6db436376ef20c651aaf092644298e3ffb92cd3c7b0da2017e7f1395bf2de8b42429874a5a63e8cc3c21febbab31b0309e41862
   languageName: node
   linkType: hard
 
-"react@npm:19.1.1, react@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
+"react@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react@npm:19.0.0"
+  checksum: 10c0/9cad8f103e8e3a16d15cb18a0d8115d8bd9f9e1ce3420310aea381eb42aa0a4f812cf047bb5441349257a05fba8a291515691e3cb51267279b2d2c3253f38471
+  languageName: node
+  linkType: hard
+
+"react@npm:^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.1.1
   resolution: "react@npm:19.1.1"
   checksum: 10c0/8c9769a2dfd02e603af6445058325e6c8a24b47b185d0e461f66a6454765ddcaecb3f0a90184836c68bb509f3c38248359edbc42f0d07c23eb500a5c30c87b4e
@@ -10208,13 +10254,6 @@ __metadata:
   dependencies:
     xmlchars: "npm:^2.2.0"
   checksum: 10c0/3847b839f060ef3476eb8623d099aa502ad658f5c40fd60c105ebce86d244389b0d76fcae30f4d0c728d7705ceb2f7e9b34bb54717b6a7dbedaf5dad2d9a4b74
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:0.25.0":
-  version: 0.25.0
-  resolution: "scheduler@npm:0.25.0"
-  checksum: 10c0/a4bb1da406b613ce72c1299db43759526058fdcc413999c3c3e0db8956df7633acf395cb20eb2303b6a65d658d66b6585d344460abaee8080b4aa931f10eaafe
   languageName: node
   linkType: hard
 

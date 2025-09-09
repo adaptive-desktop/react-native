@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from './WorkspaceView';
+import { createWorkspaceConfig } from '../../utils';
 
 const meta: Meta<typeof WorkspaceView> = {
   title: 'Components/WorkspaceView',
@@ -18,12 +19,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     workspace: (() => {
-      const ws = WorkspaceFactory.create({
-        x: 0,
-        y: 0,
-        width: 800,
-        height: 600,
-      });
+      const ws = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 0,
+          y: 0,
+          width: 800,
+          height: 600,
+        })
+      );
 
       // Create initial viewport
       ws.createViewport();
@@ -39,12 +42,14 @@ export const Default: Story = {
 // Interactive story that demonstrates updateScreenPosition
 const DynamicWorkspaceDemo = () => {
   const [workspace] = useState(() => {
-    const ws = WorkspaceFactory.create({
-      x: 50,
-      y: 50,
-      width: 600,
-      height: 400,
-    });
+    const ws = WorkspaceFactory.create(
+      createWorkspaceConfig({
+        x: 50,
+        y: 50,
+        width: 600,
+        height: 400,
+      })
+    );
 
     // Create initial viewport
     ws.createViewport();
@@ -160,12 +165,14 @@ const styles = StyleSheet.create({
 
 export const HalfWorkspace: Story = {
   render: () => {
-    const workspace = WorkspaceFactory.create({
-      x: 0,
-      y: 0,
-      width: 800,
-      height: 600,
-    });
+    const workspace = WorkspaceFactory.create(
+      createWorkspaceConfig({
+        x: 0,
+        y: 0,
+        width: 800,
+        height: 600,
+      })
+    );
 
     // Create viewport that takes up left half of workspace
     workspace.createViewport({

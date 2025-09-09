@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from './WorkspaceView';
+import { createWorkspaceConfig } from '../../utils';
 
 // Mock safe area context
 const MockSafeAreaProvider = ({ children }: { children: React.ReactNode }) => (
@@ -18,7 +19,9 @@ const MockSafeAreaProvider = ({ children }: { children: React.ReactNode }) => (
 
 describe('WorkspaceView', () => {
   const createTestWorkspace = (x = 0, y = 0, width = 800, height = 600) => {
-    const workspace = WorkspaceFactory.create({ x, y, width, height });
+    const workspace = WorkspaceFactory.create(
+      createWorkspaceConfig({ x, y, width, height })
+    );
     workspace.createViewport(); // Add initial viewport
     return workspace;
   };
@@ -48,12 +51,14 @@ describe('WorkspaceView', () => {
     });
 
     it('handles empty workspace (no viewports)', () => {
-      const workspace = WorkspaceFactory.create({
-        x: 0,
-        y: 0,
-        width: 800,
-        height: 600,
-      });
+      const workspace = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 0,
+          y: 0,
+          width: 800,
+          height: 600,
+        })
+      );
       // Don't create any viewports
 
       renderWorkspaceView(workspace);
@@ -127,12 +132,14 @@ describe('WorkspaceView', () => {
     });
 
     it('creates viewport that takes up half the workspace', () => {
-      const workspace = WorkspaceFactory.create({
-        x: 0,
-        y: 0,
-        width: 800,
-        height: 600,
-      });
+      const workspace = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 0,
+          y: 0,
+          width: 800,
+          height: 600,
+        })
+      );
 
       // Create viewport with proportional bounds for half the workspace (left half)
       const halfViewport = workspace.createViewport({
@@ -159,12 +166,14 @@ describe('WorkspaceView', () => {
 
   describe('Error Handling', () => {
     it('handles workspace with invalid bounds gracefully', () => {
-      const workspace = WorkspaceFactory.create({
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-      });
+      const workspace = WorkspaceFactory.create(
+        createWorkspaceConfig({
+          x: 0,
+          y: 0,
+          width: 0,
+          height: 0,
+        })
+      );
 
       expect(() => renderWorkspaceView(workspace)).not.toThrow();
     });
