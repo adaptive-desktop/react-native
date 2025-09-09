@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { ViewportView } from './ViewportView';
 import { createWorkspaceConfig } from '../../utils';
+import { Panel } from '../Panel';
 
 const meta: Meta<typeof ViewportView> = {
   title: 'Components/ViewportView',
@@ -66,30 +67,44 @@ export const Default: Story = {
 };
 
 export const WithCustomContent: Story = {
-  args: {
-    viewport: createStaticViewport(100, 100, 400, 250),
-    style: {
-      backgroundColor: '#1e3a8a',
-      borderWidth: 2,
-      borderColor: '#3b82f6',
-      borderRadius: 8,
-    },
+  render: () => {
+    const workspace = WorkspaceFactory.create(
+      createWorkspaceConfig({ x: 0, y: 0, width: 800, height: 600 })
+    );
+    const viewport = workspace.createViewport({
+      x: 100 / 800,
+      y: 100 / 600,
+      width: 400 / 800,
+      height: 250 / 600,
+    });
+
+    return (
+      <View style={styles.storyContainer}>
+        <ViewportView
+          viewport={viewport}
+          style={{
+            backgroundColor: '#1e3a8a',
+            borderWidth: 2,
+            borderColor: '#3b82f6',
+            borderRadius: 8,
+          }}
+        >
+          <Panel
+            title="Panel"
+            onClose={() => workspace.removeViewport(viewport.id)}
+            onSplit={dir => workspace.splitViewport(viewport.id, dir)}
+          >
+            <View style={styles.customContent}>
+              <Text style={styles.customTitle}>Panel Content</Text>
+              <Text style={styles.customText}>
+                This viewport hosts a Panel component.
+              </Text>
+            </View>
+          </Panel>
+        </ViewportView>
+      </View>
+    );
   },
-  render: args => (
-    <View style={styles.storyContainer}>
-      <ViewportView {...args}>
-        <View style={styles.customContent}>
-          <Text style={styles.customTitle}>Custom Panel</Text>
-          <Text style={styles.customText}>
-            This viewport can hold any React Native component
-          </Text>
-          <View style={styles.placeholder}>
-            <Text style={styles.placeholderText}>Panel Component Here</Text>
-          </View>
-        </View>
-      </ViewportView>
-    </View>
-  ),
 };
 
 export const MultipleViewports: Story = {

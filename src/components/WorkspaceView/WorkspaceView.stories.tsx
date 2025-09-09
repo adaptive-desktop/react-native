@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from './WorkspaceView';
 import { createWorkspaceConfig } from '../../utils';
+import { Panel } from '..';
 
 const meta: Meta<typeof WorkspaceView> = {
   title: 'Components/WorkspaceView',
@@ -205,19 +206,27 @@ export const HalfWorkspace: Story = {
               },
             ]}
           >
-            <View style={halfWorkspaceStyles.viewportContent}>
-              <Text style={halfWorkspaceStyles.viewportTitle}>Viewport</Text>
-              <Text style={halfWorkspaceStyles.viewportText}>
-                ID: {viewport.id.slice(-6)}
-              </Text>
-              <Text style={halfWorkspaceStyles.viewportText}>
-                Size: {viewport.screenBounds.width} ×{' '}
-                {viewport.screenBounds.height}
-              </Text>
-              <Text style={halfWorkspaceStyles.viewportText}>
-                50% of workspace width
-              </Text>
-            </View>
+            <Panel
+              title="Left Panel"
+              onClose={() => workspace.removeViewport(viewport.id)}
+              onSplit={dir => workspace.splitViewport(viewport.id, dir)}
+            >
+              <View style={halfWorkspaceStyles.viewportContent}>
+                <Text style={halfWorkspaceStyles.viewportTitle}>
+                  Panel Content
+                </Text>
+                <Text style={halfWorkspaceStyles.viewportText}>
+                  ID: {viewport.id.slice(-6)}
+                </Text>
+                <Text style={halfWorkspaceStyles.viewportText}>
+                  Size: {viewport.screenBounds.width} ×{' '}
+                  {viewport.screenBounds.height}
+                </Text>
+                <Text style={halfWorkspaceStyles.viewportText}>
+                  50% of workspace width
+                </Text>
+              </View>
+            </Panel>
           </View>
         </View>
       </View>

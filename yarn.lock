@@ -17,13 +17,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@adaptive-desktop/adaptive-workspace@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@adaptive-desktop/adaptive-workspace@npm:0.5.0"
+"@adaptive-desktop/adaptive-workspace@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@adaptive-desktop/adaptive-workspace@npm:0.6.0"
   dependencies:
     tslib: "npm:^2.6.0"
     ulid: "npm:^3.0.1"
-  checksum: 10c0/edb391d820c9a4d2f6d4a29e6bc43d95dcb2147c49a9de9f72b8bd55a67fc0867d66e6c3e2eaa1c7b79ca2faf20896e0f3597183c76a3d5aeb4b188390e39a07
+  checksum: 10c0/85c46c41c2c87ee32e3eefc13b3725f93eba5c2cb0472aca65bb42902eb1c790d4843a6a61e4a57d7a25d918ee124d4a7e522482f90ab321cd227894a9c8be7f
   languageName: node
   linkType: hard
 
@@ -31,7 +31,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@adaptive-desktop/react-native@workspace:."
   dependencies:
-    "@adaptive-desktop/adaptive-workspace": "npm:^0.5.0"
+    "@adaptive-desktop/adaptive-workspace": "npm:^0.6.0"
     "@babel/core": "npm:^7.24.0"
     "@babel/preset-env": "npm:^7.25.4"
     "@babel/runtime": "npm:^7.25.0"

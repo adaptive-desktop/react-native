@@ -22,7 +22,7 @@
     "gestures"
   ],
   "dependencies": {
-    "@adaptive-desktop/adaptive-workspace": "^0.5.0",
+    "@adaptive-desktop/adaptive-workspace": "^0.6.0",
     "@babel/runtime": "^7.25.0",
     "@expo/metro-runtime": "~5.0.4",
     "@gorhom/bottom-sheet": "^5.2.3",
