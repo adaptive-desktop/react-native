@@ -28,16 +28,16 @@ jobs:
       - name: Enable Corepack (Yarn 4)
         run: |
           corepack enable
-          yarn -v
+          corepack yarn -v
 
       - name: Install dependencies (immutable)
-        run: yarn install --immutable
+        run: corepack yarn install --immutable
 
       - name: Build library with Builder Bob
-        run: yarn library:build
+        run: corepack yarn library:build
 
       - name: Verify build artifacts
-        run: yarn library:verify
+        run: corepack yarn library:verify
 
       - name: Extract version from tag
         id: tag
