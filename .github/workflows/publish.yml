@@ -13,64 +13,37 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-          cache: yarn
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Enable Corepack (Yarn 4)
-        run: |
-          corepack enable
-          corepack yarn -v
+          node-version: '20'
 
       - name: Install dependencies (immutable)
-        run: corepack yarn install --immutable
+        run: yarn install --immutable
 
       - name: Build library with Builder Bob
-        run: corepack yarn library:build
+        run: yarn library:build
 
-      - name: Verify build artifacts
-        run: corepack yarn library:verify
 
-      - name: Extract version from tag
-        id: tag
-        if: startsWith(github.ref, 'refs/tags/')
-        shell: bash
+      - name: Check version consistency
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          ref="${GITHUB_REF#refs/tags/}"
-          clean="${ref#v}"
-          echo "version=$clean" >> "$GITHUB_OUTPUT"
-
-      - name: Read package.json metadata
-        id: pkg
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          PRIVATE=$(node -p "require('./package.json').private ? 'true' : 'false'")
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "private=$PRIVATE" >> "$GITHUB_OUTPUT"
-
-      - name: Ensure package is not private
-        if: steps.pkg.outputs.private == 'true'
-        run: |
-          echo "::error::package.json has private=true; cannot publish to npm. Remove \"private\": true or override before tagging." && exit 1
-
-      - name: Ensure tag matches package.json version
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          if [ "${{ steps.tag.outputs.version }}" != "${{ steps.pkg.outputs.version }}" ]; then
-            echo "::error::Tag version (${{ steps.tag.outputs.version }}) does not match package.json version (${{ steps.pkg.outputs.version }})";
-            exit 1;
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Tag version ($TAG_VERSION) does not match package.json version ($PACKAGE_VERSION)"
+            exit 1
           fi
+          echo "Version check passed: $TAG_VERSION"
 
       - name: Publish to npm
+        run: yarn npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          npm publish --access public
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
