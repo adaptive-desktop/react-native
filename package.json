@@ -99,7 +99,6 @@
       "scheduler": "^0.26.0"
     }
   },
-  "private": true,
   "exports": {
     ".": {
       "source": "./src/index.tsx",

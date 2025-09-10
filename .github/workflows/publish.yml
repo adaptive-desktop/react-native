@@ -1,0 +1,77 @@
+name: Publish to npm on tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Build (Bob) and Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Enable Corepack (Yarn 4)
+        run: |
+          corepack enable
+          yarn -v
+
+      - name: Install dependencies (immutable)
+        run: yarn install --immutable
+
+      - name: Build library with Builder Bob
+        run: yarn library:build
+
+      - name: Verify build artifacts
+        run: yarn library:verify
+
+      - name: Extract version from tag
+        id: tag
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          ref="${GITHUB_REF#refs/tags/}"
+          clean="${ref#v}"
+          echo "version=$clean" >> "$GITHUB_OUTPUT"
+
+      - name: Read package.json metadata
+        id: pkg
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          PRIVATE=$(node -p "require('./package.json').private ? 'true' : 'false'")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "private=$PRIVATE" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure package is not private
+        if: steps.pkg.outputs.private == 'true'
+        run: |
+          echo "::error::package.json has private=true; cannot publish to npm. Remove \"private\": true or override before tagging." && exit 1
+
+      - name: Ensure tag matches package.json version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          if [ "${{ steps.tag.outputs.version }}" != "${{ steps.pkg.outputs.version }}" ]; then
+            echo "::error::Tag version (${{ steps.tag.outputs.version }}) does not match package.json version (${{ steps.pkg.outputs.version }})";
+            exit 1;
+          fi
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish --access public
+

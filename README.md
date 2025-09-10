@@ -13,7 +13,7 @@ React Native components for building adaptive desktop layouts with flexible work
 - **⚡ Responsive Updates** - Automatic re-rendering when workspace bounds change
 - **🧪 Fully Tested** - 100% test coverage with comprehensive test suite
 - **📦 TypeScript First** - Complete type safety and IntelliSense support
-- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.5.0
+- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.6.0
 
 ## Installation
 
@@ -185,11 +185,11 @@ The demo demonstrates:
 - Basic workspace creation and viewport management
 - Automatic re-rendering on workspace changes
 - Safe area handling for mobile devices
-- Integration with `@adaptive-desktop/adaptive-workspace` v0.5.0
+- Integration with `@adaptive-desktop/adaptive-workspace` v0.6.0
 
 ## Architecture
 
-This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.5.0:
+This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.6.0:
 
 ### Core Integration Pattern
 

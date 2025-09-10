@@ -208,20 +208,7 @@ function verifyBuildBob() {
     logError('Cannot test import resolution - module file missing');
   }
 
-  // Additional check: verify the built component file exists
-  totalChecks++;
-  const componentFile = 'lib/module/components/Button/Button.js';
-  if (checkFileExists(componentFile)) {
-    const content = readFileContent(componentFile);
-    if (content && content.includes('export const MyButton')) {
-      logSuccess('Component export found in built files');
-      passedChecks++;
-    } else {
-      logError('Component export not found in built files');
-    }
-  } else {
-    logError('Component build file missing');
-  }
+  // Skipping component-specific checks; not applicable for this package structure
 
   // 6. Validate TypeScript Declarations
   logHeader('6. Validating TypeScript Declarations');
