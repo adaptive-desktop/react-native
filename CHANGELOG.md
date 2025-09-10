@@ -9,4 +9,3 @@ All notable changes to this project will be documented in this file.
 - Integration with `@adaptive-desktop/adaptive-workspace` v0.6.x
 - TypeScript types and ESM/CJS build via react-native-builder-bob
 - Verified build artifacts and exports
-
