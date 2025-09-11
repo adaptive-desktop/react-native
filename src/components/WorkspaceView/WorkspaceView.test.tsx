@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
+import { WorkspaceFactory, WorkspaceInterface } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from './WorkspaceView';
 import { createWorkspaceConfig } from '../../utils';
 
@@ -18,7 +18,7 @@ const MockSafeAreaProvider = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe('WorkspaceView', () => {
-  const createTestWorkspace = (x = 0, y = 0, width = 800, height = 600) => {
+  const createTestWorkspace = (x = 0, y = 0, width = 800, height = 600): WorkspaceInterface => {
     const workspace = WorkspaceFactory.create(
       createWorkspaceConfig({ x, y, width, height })
     );
@@ -26,7 +26,7 @@ describe('WorkspaceView', () => {
     return workspace;
   };
 
-  const renderWorkspaceView = (workspace: any, props = {}) => {
+  const renderWorkspaceView = (workspace: WorkspaceInterface, props = {}) => {
     return render(
       <MockSafeAreaProvider>
         <WorkspaceView workspace={workspace} {...props} />

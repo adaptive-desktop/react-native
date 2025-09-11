@@ -1,9 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import {
-  WorkspaceFactory,
-  Viewport,
-} from '@adaptive-desktop/adaptive-workspace';
+import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from '../components';
 import { createWorkspaceConfig } from '../utils';
 
