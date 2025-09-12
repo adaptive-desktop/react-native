@@ -30,7 +30,6 @@ jobs:
       - name: Build library with Builder Bob
         run: yarn library:build
 
-
       - name: Check version consistency
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
@@ -46,4 +45,3 @@ jobs:
         run: yarn npm publish --access public
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          

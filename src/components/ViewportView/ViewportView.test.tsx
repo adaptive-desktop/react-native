@@ -224,7 +224,7 @@ describe('ViewportView', () => {
         { x: 25, y: 25, width: 750, height: 500 },
       ];
 
-      positions.forEach((pos) => {
+      positions.forEach(pos => {
         workspace.updateScreenBounds(pos);
 
         rerender(<ViewportView viewport={viewport} testID="viewport-view" />);

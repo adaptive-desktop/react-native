@@ -57,8 +57,7 @@ module.exports = [
       'react-hooks': reactHooks,
       'react-native': reactNative,
     },
-    rules: {
-    },
+    rules: {},
     rules: {
       ...tseslint.configs.recommended.rules,
       '@typescript-eslint/explicit-module-boundary-types': 'off',

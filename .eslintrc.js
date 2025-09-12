@@ -9,12 +9,7 @@ module.exports = {
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-    'react',
-    'react-hooks',
-    'react-native',
-  ],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'react-native'],
   env: {
     'react-native/react-native': true,
     es6: true,

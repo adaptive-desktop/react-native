@@ -40,8 +40,7 @@ export const WorkspaceView = ({
   return (
     <View style={containerStyle} testID={testID}>
       {viewports.length === 0 ? (
-        <View style={styles.emptyContainer}>
-        </View>
+        <View style={styles.emptyContainer}></View>
       ) : (
         <View style={styles.viewportsContainer}>
           {viewports.map(viewport => {
@@ -56,10 +55,7 @@ export const WorkspaceView = ({
               borderColor: '#333',
             };
 
-            return (
-              <View key={viewport.id} style={viewportStyle}>
-              </View>
-            );
+            return <View key={viewport.id} style={viewportStyle}></View>;
           })}
         </View>
       )}

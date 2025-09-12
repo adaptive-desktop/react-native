@@ -13,7 +13,7 @@ describe('Panel', () => {
   });
 
   it('hides content when minimized', () => {
-  const { rerender } = render(
+    const { rerender } = render(
       <Panel title="x">
         {/* content marker */}
         <>
