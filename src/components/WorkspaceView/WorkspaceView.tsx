@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, ViewStyle, Text } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WorkspaceInterface } from '@adaptive-desktop/adaptive-workspace';
 

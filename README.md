@@ -1,7 +1,10 @@
 # @adaptive-desktop/react-native
 
 [![codecov](https://codecov.io/gh/adaptive-desktop/react-native/graph/badge.svg?token=BVr2jhrcb4)](https://codecov.io/gh/adaptive-desktop/react-native)
+
 [![npm version](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native.svg)](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native)
+
+Current version: **v0.1.1**
 
 React Native components for building adaptive desktop layouts with flexible workspace management. Built on the framework-agnostic `@adaptive-desktop/adaptive-workspace` core library.
 
@@ -17,21 +20,23 @@ React Native components for building adaptive desktop layouts with flexible work
 
 ## Installation
 
-```sh
+````sh
 npm install @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
 # or
 yarn add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
 # or
 pnpm add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
-```
 
-### Required Peer Dependencies
 
 ```sh
-npm install react-native-safe-area-context
+npm install @adaptive-desktop/react-native@0.1.1 @adaptive-desktop/adaptive-workspace
 # or
 yarn add react-native-safe-area-context
-```
+# or
+pnpm add @adaptive-desktop/react-native@0.1.1 @adaptive-desktop/adaptive-workspace
+````
+
+````
 
 ### Setup
 
@@ -43,7 +48,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function App() {
   return <SafeAreaProvider>{/* Your app content */}</SafeAreaProvider>;
 }
-```
+````
 
 ## Quick Start
 

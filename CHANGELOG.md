@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.1.1 - 2025-09-12
+
+- Added `.github/copilot-instructions.md` and improved project documentation
+- Updated and simplified GitHub Actions publish workflow
+- Added new ESLint config and related dev dependencies
+- Upgraded Expo, React Native, and related dependencies
+- Refactored `WorkspaceView` and its tests (simplified viewport rendering and test coverage)
+- Minor code and test cleanups
+
 ## v0.1.0 - 2025-09-10
 
 - Initial release of `@adaptive-desktop/react-native`
