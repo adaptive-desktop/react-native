@@ -25,7 +25,7 @@
     "@adaptive-desktop/adaptive-workspace": "0.6.0",
     "@babel/runtime": "^7.25.0",
     "@expo/metro-runtime": "~6.1.1",
-    "@gorhom/bottom-sheet": "^5.2.3",
+    "@gorhom/bottom-sheet": "^5.2.6",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-community/datetimepicker": "8.4.4",
     "@react-native-community/slider": "5.0.1",
@@ -38,8 +38,8 @@
     "metro-cache": "^0.82.0",
     "metro-core": "^0.82.0",
     "metro-transform-plugins": "^0.82.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-native": "0.81.4",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-haptic-feedback": "^2.2.0",
@@ -47,10 +47,10 @@
     "react-native-safe-area-context": "~5.6.0",
     "react-native-svg": "15.12.1",
     "react-native-uuid": "^2.0.3",
-    "react-native-web": "^0.20.0",
+    "react-native-web": "^0.21.1",
     "react-native-worklets": "^0.5.1",
     "react-refresh": "^0.17.0",
-    "react-test-renderer": "19.0.0"
+    "react-test-renderer": "19.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
@@ -143,7 +143,6 @@
     "node_modules/",
     "lib/"
   ],
-  "packageManager": "yarn@4.9.0+sha512.5f5f00843eae735dfab6f0442524603e987ceca55e98b36eb0120f4e58908e5b1406545321e46627dca97d15d562f23dc13fb96cabd4e6bc92d379f619001e4e",
   "scripts": {
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "demo": "expo start",
@@ -170,5 +169,6 @@
     "storybook:generate": "sb-rn-get-stories",
     "android": "expo run:android",
     "ios": "expo run:ios"
-  }
+  },
+  "packageManager": "yarn@4.9.4"
 }
