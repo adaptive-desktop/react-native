@@ -17,13 +17,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@adaptive-desktop/adaptive-workspace@npm:0.6.0":
-  version: 0.6.0
-  resolution: "@adaptive-desktop/adaptive-workspace@npm:0.6.0"
+"@adaptive-desktop/adaptive-workspace@npm:0.7.4":
+  version: 0.7.4
+  resolution: "@adaptive-desktop/adaptive-workspace@npm:0.7.4"
   dependencies:
     tslib: "npm:^2.6.0"
-    ulid: "npm:^3.0.1"
-  checksum: 10c0/85c46c41c2c87ee32e3eefc13b3725f93eba5c2cb0472aca65bb42902eb1c790d4843a6a61e4a57d7a25d918ee124d4a7e522482f90ab321cd227894a9c8be7f
+  checksum: 10c0/abe302907ebb92f0357a1ef0b073d8b58ba0b1b3fbea2c7089c70662174ee2f95a7ac337ee955a9acd04dece67e2ad183ef6a0ead81bdf7c9c70bd06115a538f
   languageName: node
   linkType: hard
 
@@ -31,7 +30,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@adaptive-desktop/react-native@workspace:."
   dependencies:
-    "@adaptive-desktop/adaptive-workspace": "npm:0.6.0"
+    "@adaptive-desktop/adaptive-workspace": "npm:0.7.4"
     "@babel/core": "npm:^7.24.0"
     "@babel/preset-env": "npm:^7.25.4"
     "@babel/runtime": "npm:^7.25.0"
@@ -12776,15 +12775,6 @@ __metadata:
   bin:
     ua-parser-js: script/cli.js
   checksum: 10c0/45dc1f7f3ce8248e0e64640d2e29c65c0ea1fc9cb105594de84af80e2a57bba4f718b9376098ca7a5b0ffe240f8995b0fa3714afa9d36861c41370a378f1a274
-  languageName: node
-  linkType: hard
-
-"ulid@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "ulid@npm:3.0.1"
-  bin:
-    ulid: dist/cli.js
-  checksum: 10c0/3b3eba4bea0d22fee7a7465d1d239f0bb20f604325a72fdb273085f18a2eeecf4391a967e8446f6d4eaa39f32fabe320a6d87846bd6313aacd2cd294d6d2b858
   languageName: node
   linkType: hard
 

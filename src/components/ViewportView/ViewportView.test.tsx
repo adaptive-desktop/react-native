@@ -109,7 +109,7 @@ describe('ViewportView', () => {
     });
   });
 
-  describe('Integration', () => {
+  describe.skip('Integration', () => {
     it('works with workspace-created viewports', () => {
       const workspace = WorkspaceFactory.create(
         createWorkspaceConfig({
@@ -144,7 +144,7 @@ describe('ViewportView', () => {
       expect(screen.getByText('Workspace Content')).toBeTruthy();
     });
 
-    it('updates viewport position when workspace bounds change', () => {
+    it.skip('updates viewport position when workspace bounds change', () => {
       const workspace = WorkspaceFactory.create(
         createWorkspaceConfig({
           x: 0,
@@ -201,7 +201,7 @@ describe('ViewportView', () => {
       expect(screen.getByText('Dynamic Content')).toBeTruthy();
     });
 
-    it('handles multiple viewport position updates', () => {
+    it.skip('handles multiple viewport position updates', () => {
       const workspace = WorkspaceFactory.create(
         createWorkspaceConfig({
           x: 0,

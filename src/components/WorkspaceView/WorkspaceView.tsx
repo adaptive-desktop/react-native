@@ -33,8 +33,8 @@ export const WorkspaceView = ({
   );
 
   const viewports = useMemo(
-    () => workspace.getViewports(),
-    [workspace.screenBounds]
+    () => Array.from(workspace.viewports.values()),
+    [workspace.viewports, workspace.screenBounds]
   );
 
   return (

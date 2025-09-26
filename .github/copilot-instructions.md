@@ -1,3 +1,29 @@
+## Release Process
+
+When a new release is requested:
+
+1. **Determine Version Bump:**
+
+- Find the current version in `package.json`.
+- Compare the current codebase to the last release (current version tag) to summarize changes.
+- Propose a version bump (patch or minor) based on the changes and ask for confirmation.
+
+2. **Update Version:**
+
+- Update all references to the version in code and documentation (e.g., `package.json`, `README.md`).
+
+3. **Update Changelog:**
+
+- Check the web for the current date.
+- Add a new entry to `CHANGELOG.md` with the date, new version, and a summary of changes.
+
+4. **Commit and Tag:**
+
+- Commit all changes with a message like `release: vX.Y.Z`.
+- Create a new git tag for the version and push the tag to GitHub to trigger the publish workflow.
+
+Always confirm the version bump with the user before proceeding with the release steps.
+
 ## Committing Code
 
 - All code must pass tests, linting, and formatting before committing.

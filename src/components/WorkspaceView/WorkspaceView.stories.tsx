@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from './WorkspaceView';
-import { createWorkspaceConfig } from '../../utils';
 import { Panel } from '..';
+import { loadDesktopSnapshot } from '@adaptive-desktop/adaptive-workspace';
+import { idGenerator } from '../../utils';
 
 const meta: Meta<typeof WorkspaceView> = {
   title: 'Components/WorkspaceView',
@@ -20,22 +22,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     workspace: (() => {
-      const ws = WorkspaceFactory.create(
-        createWorkspaceConfig({
-          x: 0,
-          y: 0,
-          width: 800,
-          height: 600,
-        })
-      );
-
-      // Create initial viewport
-      ws.createViewport();
-
-      return ws;
+      const snapshot = loadDesktopSnapshot();
+      const context = snapshot.workspaceContexts[0];
+      const factory = new WorkspaceFactory(idGenerator);
+      return factory.fromSnapshot(snapshot, context.maxScreenBounds);
     })(),
     style: {
-      backgroundColor: '#808080', // Simple gray background
+      backgroundColor: '#808080',
     },
   },
 };
@@ -43,19 +36,13 @@ export const Default: Story = {
 // Interactive story that demonstrates updateScreenPosition
 const DynamicWorkspaceDemo = () => {
   const [workspace] = useState(() => {
-    const ws = WorkspaceFactory.create(
-      createWorkspaceConfig({
-        x: 50,
-        y: 50,
-        width: 600,
-        height: 400,
-      })
-    );
-
-    // Create initial viewport
-    ws.createViewport();
-
-    return ws;
+    const snapshot = loadDesktopSnapshot();
+    // Use the 'laptop' context for a smaller workspace
+    const context =
+      snapshot.workspaceContexts.find(ctx => ctx.id === 'laptop') ||
+      snapshot.workspaceContexts[0];
+    const factory = new WorkspaceFactory(idGenerator);
+    return factory.fromSnapshot(snapshot, context.maxScreenBounds);
   });
 
   const [, forceUpdate] = useState({});
@@ -66,7 +53,7 @@ const DynamicWorkspaceDemo = () => {
     width: number,
     height: number
   ) => {
-    workspace.updateScreenBounds({ x, y, width, height });
+    workspace.setScreenBounds({ x, y, width, height });
     forceUpdate({}); // Force re-render to show changes
   };
 
@@ -99,7 +86,7 @@ const DynamicWorkspaceDemo = () => {
             style={styles.button}
             onPress={() => updatePosition(100, 100, 400, 300)}
           >
-            <Text style={styles.buttonText}>Small Center</Text>
+            <Text style={styles.buttonText}>Bottom Right</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -166,35 +153,26 @@ const styles = StyleSheet.create({
 
 export const HalfWorkspace: Story = {
   render: () => {
-    const workspace = WorkspaceFactory.create(
-      createWorkspaceConfig({
-        x: 0,
-        y: 0,
-        width: 800,
-        height: 600,
-      })
-    );
-
-    // Create viewport that takes up left half of workspace
-    workspace.createViewport({
-      x: 0, // Start at left edge
-      y: 0, // Start at top edge
-      width: 0.5, // Take up 50% of workspace width
-      height: 1, // Take up full workspace height
-    });
-
-    const viewport = workspace.getViewports()[0];
-
+    const snapshot = loadDesktopSnapshot();
+    const context = snapshot.workspaceContexts[0];
+    const factory = new WorkspaceFactory(idGenerator);
+    const workspace = factory.fromSnapshot(snapshot, context.maxScreenBounds);
+    // Use the first viewport from the snapshot
+    const viewport = workspace.viewports.values().next().value;
+    if (!viewport) {
+      return (
+        <View>
+          <Text>No viewport found in snapshot.</Text>
+        </View>
+      );
+    }
     return (
       <View style={halfWorkspaceStyles.container}>
         <Text style={halfWorkspaceStyles.title}>Half Workspace Demo</Text>
         <Text style={halfWorkspaceStyles.description}>
           Workspace (gray) with viewport (blue) taking up left half
         </Text>
-
-        {/* Workspace container with gray background */}
         <View style={halfWorkspaceStyles.workspaceContainer}>
-          {/* Viewport with blue background */}
           <View
             style={[
               halfWorkspaceStyles.viewport,
