@@ -85,8 +85,10 @@ export const debounce = <T extends (...args: unknown[]) => void>(
 
   return (...args: Parameters<T>) => {
     if (timeoutId) {
+      // eslint-disable-next-line no-undef
       clearTimeout(timeoutId);
     }
+    // eslint-disable-next-line no-undef
     timeoutId = setTimeout(() => func(...args), delay) as unknown as number;
   };
 };
