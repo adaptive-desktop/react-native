@@ -71,6 +71,7 @@ yarn expo install react-native-safe-area-context
 Here's a complete example of integrating the adaptive desktop library into an Expo app:
 
 **App.tsx:**
+
 ```tsx
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
@@ -78,9 +79,12 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   WorkspaceFactory,
-  loadDesktopSnapshot
+  loadDesktopSnapshot,
 } from '@adaptive-desktop/adaptive-workspace';
-import { WorkspaceView, useWorkspaceDimensions } from '@adaptive-desktop/react-native';
+import {
+  WorkspaceView,
+  useWorkspaceDimensions,
+} from '@adaptive-desktop/react-native';
 import { idGenerator } from '@adaptive-desktop/react-native/utils';
 
 function AdaptiveDesktopApp() {
@@ -141,6 +145,7 @@ The library supports all Expo platforms:
 ### Development Workflow
 
 1. **Start Expo development server:**
+
    ```sh
    npx expo start
    ```
@@ -152,10 +157,11 @@ The library supports all Expo platforms:
    - Scan QR code for physical device
 
 3. **Build for production:**
+
    ```sh
    # Using EAS Build
    npx eas build --platform all
-   
+
    # Or classic Expo build
    npx expo build:ios
    npx expo build:android
@@ -172,12 +178,16 @@ function ResponsiveWorkspace() {
   const [workspace] = useState(() => {
     const snapshot = loadDesktopSnapshot();
     // Choose context based on screen size
-    const context = Dimensions.get('window').width > 768
-      ? snapshot.workspaceContexts.find(ctx => ctx.id === 'desktop')
-      : snapshot.workspaceContexts.find(ctx => ctx.id === 'tablet');
-    
+    const context =
+      Dimensions.get('window').width > 768
+        ? snapshot.workspaceContexts.find(ctx => ctx.id === 'desktop')
+        : snapshot.workspaceContexts.find(ctx => ctx.id === 'tablet');
+
     const factory = new WorkspaceFactory(idGenerator);
-    return factory.fromSnapshot(snapshot, context?.maxScreenBounds || snapshot.workspaceContexts[0].maxScreenBounds);
+    return factory.fromSnapshot(
+      snapshot,
+      context?.maxScreenBounds || snapshot.workspaceContexts[0].maxScreenBounds
+    );
   });
 
   useWorkspaceDimensions({
@@ -196,7 +206,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
   WorkspaceFactory,
-  loadDesktopSnapshot
+  loadDesktopSnapshot,
 } from '@adaptive-desktop/adaptive-workspace';
 import { WorkspaceView } from '@adaptive-desktop/react-native';
 import { idGenerator } from '@adaptive-desktop/react-native/utils';
@@ -257,7 +267,7 @@ Workspaces are created using snapshots that define the layout configuration. The
 ```tsx
 import {
   WorkspaceFactory,
-  loadDesktopSnapshot
+  loadDesktopSnapshot,
 } from '@adaptive-desktop/adaptive-workspace';
 import { idGenerator } from '@adaptive-desktop/react-native/utils';
 
@@ -268,6 +278,7 @@ const workspace = factory.fromSnapshot(snapshot, context.maxScreenBounds);
 ```
 
 **Available workspace contexts:**
+
 - `desktop` - Full desktop layout
 - `laptop` - Laptop-optimized layout
 - `tablet` - Tablet-friendly layout

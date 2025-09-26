@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { WorkspaceFactory, loadDesktopSnapshot } from '@adaptive-desktop/adaptive-workspace';
+import {
+  WorkspaceFactory,
+  loadDesktopSnapshot,
+} from '@adaptive-desktop/adaptive-workspace';
 import { idGenerator } from '../utils/idGenerator';
 import { WorkspaceView } from '../components';
 import { useWorkspaceDimensions } from '../hooks';

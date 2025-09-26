@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Dimensions, ScaledSize } from 'react-native';
 import { WorkspaceInterface } from '@adaptive-desktop/adaptive-workspace';
-import { 
-  createOrientationState, 
-  OrientationState, 
-  ORIENTATION_CHANGE_DEBOUNCE 
+import {
+  createOrientationState,
+  OrientationState,
+  ORIENTATION_CHANGE_DEBOUNCE,
 } from '../../utils/orientationUtils';
 
 export interface UseWorkspaceDimensionsOptions {
@@ -12,12 +12,12 @@ export interface UseWorkspaceDimensionsOptions {
    * Workspace instance to automatically update screenBounds
    */
   workspace?: WorkspaceInterface;
-  
+
   /**
    * Debounce delay for orientation changes (default: 400ms)
    */
   debounceDelay?: number;
-  
+
   /**
    * Whether to automatically update workspace screenBounds
    */
@@ -29,26 +29,31 @@ export interface UseWorkspaceDimensionsReturn {
    * Current orientation state
    */
   orientationState: OrientationState;
-  
+
   /**
    * Current window dimensions
    */
   window: ScaledSize;
-  
+
   /**
    * Current screen dimensions
    */
   screen: ScaledSize;
-  
+
   /**
    * Whether dimensions are currently changing (during debounce period)
    */
   isChanging: boolean;
-  
+
   /**
    * Manually update workspace screenBounds
    */
-  updateWorkspaceScreenBounds: (bounds?: { width: number; height: number; x?: number; y?: number }) => void;
+  updateWorkspaceScreenBounds: (bounds?: {
+    width: number;
+    height: number;
+    x?: number;
+    y?: number;
+  }) => void;
 }
 
 /**
@@ -117,7 +122,10 @@ export const useWorkspaceDimensions = (
       // Set up new debounced update
       // eslint-disable-next-line no-undef
       debounceTimerRef.current = setTimeout(() => {
-        const newOrientationState = createOrientationState(newWindow, newScreen);
+        const newOrientationState = createOrientationState(
+          newWindow,
+          newScreen
+        );
         setOrientationState(newOrientationState);
         setIsChanging(false);
 
@@ -139,17 +147,20 @@ export const useWorkspaceDimensions = (
 
   // Listen for dimension changes
   useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window, screen }) => {
-      // Update dimensions immediately for responsive UI
-      setDimensions({ window, screen });
-      
-      // Update orientation state with debouncing
-      updateOrientationState(window, screen);
-    });
+    const subscription = Dimensions.addEventListener(
+      'change',
+      ({ window, screen }) => {
+        // Update dimensions immediately for responsive UI
+        setDimensions({ window, screen });
+
+        // Update orientation state with debouncing
+        updateOrientationState(window, screen);
+      }
+    );
 
     return () => {
       subscription?.remove();
-      
+
       // Clean up debounce timer
       if (debounceTimerRef.current) {
         // eslint-disable-next-line no-undef

@@ -48,7 +48,9 @@ export const getDeviceType = (dimensions: ScaledSize): DeviceType => {
 /**
  * Get orientation from dimensions
  */
-export const getOrientationFromDimensions = (dimensions: ScaledSize): 'portrait' | 'landscape' => {
+export const getOrientationFromDimensions = (
+  dimensions: ScaledSize
+): 'portrait' | 'landscape' => {
   return dimensions.width > dimensions.height ? 'landscape' : 'portrait';
 };
 
@@ -80,7 +82,7 @@ export const debounce = <T extends (...args: unknown[]) => void>(
   delay: number
 ): ((...args: Parameters<T>) => void) => {
   let timeoutId: number | undefined;
-  
+
   return (...args: Parameters<T>) => {
     if (timeoutId) {
       clearTimeout(timeoutId);
