@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
+import { View, StyleSheet } from 'react-native';
+import { WorkspaceFactory, loadDesktopSnapshot } from '@adaptive-desktop/adaptive-workspace';
 import { idGenerator } from '../utils/idGenerator';
 import { WorkspaceView } from '../components';
+import { useWorkspaceDimensions } from '../hooks';
 
 export const AdaptiveDesktopDemo: React.FC = () => {
-  const dimensions = Dimensions.get('window');
-
   const [workspace] = useState(() => {
+    const snapshot = loadDesktopSnapshot();
+    const context = snapshot.workspaceContexts[0];
     const factory = new WorkspaceFactory(idGenerator);
-    const ws = factory.create();
-    ws.screenBounds = {
-      x: 0,
-      y: 0,
-      width: dimensions.width,
-      height: dimensions.height,
-    };
-    ws.createViewport();
-    return ws;
+    return factory.fromSnapshot(snapshot, context.maxScreenBounds);
+  });
+
+  // Use the enhanced hook to automatically handle dimension changes
+  useWorkspaceDimensions({
+    workspace,
+    autoUpdateWorkspace: true,
   });
 
   return (

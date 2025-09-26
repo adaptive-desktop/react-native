@@ -51,34 +51,162 @@ export default function App() {
 }
 ```
 
+## Expo Integration
+
+This library is fully compatible with Expo and can be easily integrated into any Expo project.
+
+### Installation in Expo Projects
+
+```sh
+# Using Expo CLI (recommended for Expo projects)
+npx expo install @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace react-native-safe-area-context
+
+# Or using yarn
+yarn add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
+yarn expo install react-native-safe-area-context
+```
+
+### Complete Expo App Example
+
+Here's a complete example of integrating the adaptive desktop library into an Expo app:
+
+**App.tsx:**
+```tsx
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {
+  WorkspaceFactory,
+  loadDesktopSnapshot
+} from '@adaptive-desktop/adaptive-workspace';
+import { WorkspaceView, useWorkspaceDimensions } from '@adaptive-desktop/react-native';
+import { idGenerator } from '@adaptive-desktop/react-native/utils';
+
+function AdaptiveDesktopApp() {
+  const [workspace] = useState(() => {
+    const snapshot = loadDesktopSnapshot();
+    const context = snapshot.workspaceContexts[0];
+    const factory = new WorkspaceFactory(idGenerator);
+    return factory.fromSnapshot(snapshot, context.maxScreenBounds);
+  });
+
+  // Automatically handle dimension changes and update workspace
+  useWorkspaceDimensions({
+    workspace,
+    autoUpdateWorkspace: true,
+  });
+
+  return (
+    <View style={styles.container}>
+      <WorkspaceView workspace={workspace} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <AdaptiveDesktopApp />
+    </SafeAreaProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1e1e1e',
+  },
+});
+```
+
+### Expo Configuration
+
+No additional configuration is required in `app.json` or `expo.json`. The library works out of the box with:
+
+- **Expo Go** - For development and testing
+- **Expo Development Builds** - For custom native code (if needed)
+- **EAS Build** - For production builds
+
+### Platform Support
+
+The library supports all Expo platforms:
+
+- **📱 iOS** - Full support with safe area handling
+- **🤖 Android** - Full support with safe area handling
+- **🌐 Web** - Full support for web deployment
+- **🖥️ Desktop** - Works with Expo's experimental desktop support
+
+### Development Workflow
+
+1. **Start Expo development server:**
+   ```sh
+   npx expo start
+   ```
+
+2. **Test on different platforms:**
+   - Press `i` for iOS Simulator
+   - Press `a` for Android Emulator
+   - Press `w` for web browser
+   - Scan QR code for physical device
+
+3. **Build for production:**
+   ```sh
+   # Using EAS Build
+   npx eas build --platform all
+   
+   # Or classic Expo build
+   npx expo build:ios
+   npx expo build:android
+   ```
+
+### Responsive Design
+
+The library automatically adapts to different screen sizes and orientations:
+
+```tsx
+import { useWorkspaceDimensions } from '@adaptive-desktop/react-native';
+
+function ResponsiveWorkspace() {
+  const [workspace] = useState(() => {
+    const snapshot = loadDesktopSnapshot();
+    // Choose context based on screen size
+    const context = Dimensions.get('window').width > 768
+      ? snapshot.workspaceContexts.find(ctx => ctx.id === 'desktop')
+      : snapshot.workspaceContexts.find(ctx => ctx.id === 'tablet');
+    
+    const factory = new WorkspaceFactory(idGenerator);
+    return factory.fromSnapshot(snapshot, context?.maxScreenBounds || snapshot.workspaceContexts[0].maxScreenBounds);
+  });
+
+  useWorkspaceDimensions({
+    workspace,
+    autoUpdateWorkspace: true,
+  });
+
+  return <WorkspaceView workspace={workspace} />;
+}
+```
+
 ## Quick Start
 
 ```tsx
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
+import { View, StyleSheet } from 'react-native';
 import {
-  WorkspaceView,
-  createWorkspaceConfig,
-} from '@adaptive-desktop/react-native';
+  WorkspaceFactory,
+  loadDesktopSnapshot
+} from '@adaptive-desktop/adaptive-workspace';
+import { WorkspaceView } from '@adaptive-desktop/react-native';
+import { idGenerator } from '@adaptive-desktop/react-native/utils';
 
 const MyApp = () => {
-  const dimensions = Dimensions.get('window');
-
   const [workspace] = useState(() => {
-    const ws = WorkspaceFactory.create(
-      createWorkspaceConfig({
-        x: 0,
-        y: 0,
-        width: dimensions.width,
-        height: dimensions.height,
-      })
-    );
-
-    // Create initial viewport
-    ws.createViewport();
-
-    return ws;
+    const snapshot = loadDesktopSnapshot();
+    const context = snapshot.workspaceContexts[0];
+    const factory = new WorkspaceFactory(idGenerator);
+    return factory.fromSnapshot(snapshot, context.maxScreenBounds);
   });
 
   return (
@@ -122,23 +250,27 @@ interface WorkspaceViewProps {
 - `style` - Optional React Native ViewStyle for custom styling
 - `testID` - Optional test identifier for testing
 
-### ID Generator Configuration
+### Workspace Creation with Snapshots
 
-Starting with `@adaptive-desktop/adaptive-workspace` v0.5.0, an ID generator is required for creating workspaces. This library provides a convenient helper that uses `react-native-uuid`:
+Workspaces are created using snapshots that define the layout configuration. The library provides a default desktop snapshot:
 
 ```tsx
-import { createWorkspaceConfig } from '@adaptive-desktop/react-native';
+import {
+  WorkspaceFactory,
+  loadDesktopSnapshot
+} from '@adaptive-desktop/adaptive-workspace';
+import { idGenerator } from '@adaptive-desktop/react-native/utils';
 
-// Use createWorkspaceConfig instead of passing bounds directly
-const workspace = WorkspaceFactory.create(
-  createWorkspaceConfig({
-    x: 0,
-    y: 0,
-    width: 800,
-    height: 600,
-  })
-);
+const snapshot = loadDesktopSnapshot();
+const context = snapshot.workspaceContexts[0]; // Use first available context
+const factory = new WorkspaceFactory(idGenerator);
+const workspace = factory.fromSnapshot(snapshot, context.maxScreenBounds);
 ```
+
+**Available workspace contexts:**
+- `desktop` - Full desktop layout
+- `laptop` - Laptop-optimized layout
+- `tablet` - Tablet-friendly layout
 
 ### useDimensions Hook
 
@@ -160,23 +292,42 @@ const MyComponent = () => {
 
 ## Dynamic Workspace Updates
 
-The WorkspaceView automatically re-renders when workspace bounds change:
+The WorkspaceView automatically re-renders when workspace bounds change. Use the `useWorkspaceDimensions` hook for automatic updates:
 
 ```tsx
-const updateWorkspacePosition = () => {
-  // This will automatically trigger a re-render of WorkspaceView
-  workspace.updateScreenBounds({
-    x: 100,
-    y: 100,
-    width: 600,
-    height: 400,
+import { useWorkspaceDimensions } from '@adaptive-desktop/react-native';
+
+const MyComponent = () => {
+  const [workspace] = useState(() => {
+    const snapshot = loadDesktopSnapshot();
+    const context = snapshot.workspaceContexts[0];
+    const factory = new WorkspaceFactory(idGenerator);
+    return factory.fromSnapshot(snapshot, context.maxScreenBounds);
   });
+
+  // Automatically update workspace when device dimensions change
+  useWorkspaceDimensions({
+    workspace,
+    autoUpdateWorkspace: true,
+  });
+
+  // Manual updates are also supported
+  const updateWorkspacePosition = () => {
+    workspace.setScreenBounds({
+      x: 100,
+      y: 100,
+      width: 600,
+      height: 400,
+    });
+  };
+
+  return <WorkspaceView workspace={workspace} />;
 };
 ```
 
 ## Demo Application
 
-The project includes a demo showing basic workspace functionality:
+The project includes a demo showing workspace functionality with snapshot-based initialization:
 
 ```tsx
 import { AdaptiveDesktopDemo } from '@adaptive-desktop/react-native';
@@ -188,7 +339,8 @@ export default function App() {
 
 The demo demonstrates:
 
-- Basic workspace creation and viewport management
+- Workspace creation using `loadDesktopSnapshot()` and `WorkspaceFactory.fromSnapshot()`
+- Automatic viewport management from snapshot configuration
 - Automatic re-rendering on workspace changes
 - Safe area handling for mobile devices
 - Integration with `@adaptive-desktop/adaptive-workspace` v0.6.0
@@ -199,10 +351,11 @@ This library provides React Native components that integrate with `@adaptive-des
 
 ### Core Integration Pattern
 
-1. **Workspace Creation**: Use `WorkspaceFactory.create()` to create workspace instances
+1. **Workspace Creation**: Use `WorkspaceFactory.fromSnapshot()` with `loadDesktopSnapshot()` to create workspace instances
 2. **Component Integration**: Pass workspace to `WorkspaceView` component
 3. **Automatic Updates**: Component watches `workspace.screenBounds` for re-rendering
 4. **Safe Area Handling**: Built-in support for device safe areas
+5. **Dimension Management**: Use `useWorkspaceDimensions` hook for responsive updates
 
 ### Key Features
 

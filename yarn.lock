@@ -68,6 +68,7 @@ __metadata:
     expo: "npm:^54.0.2"
     expo-constants: "npm:~18.0.8"
     expo-dev-client: "npm:~6.0.12"
+    expo-screen-orientation: "npm:~9.0.7"
     expo-status-bar: "npm:~3.0.8"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:^30.1.1"
@@ -6816,6 +6817,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/c7f2b9cebb7206aa8601c01bdbc62a0029a7e1ffb0ae283efebd12821a9a4b607251570cfe9991f801d9ad74b812fdf8432a6d051b42c5f3ee1fd52044924bbc
+  languageName: node
+  linkType: hard
+
+"expo-screen-orientation@npm:~9.0.7":
+  version: 9.0.7
+  resolution: "expo-screen-orientation@npm:9.0.7"
+  peerDependencies:
+    expo: "*"
+    react-native: "*"
+  checksum: 10c0/62abb0cb18866a3d2b52b4516aa3ea2b233f0cda082458b85e6acc57e413d0b272d17e18e2da8d75698d8c25e21c7d9bd89b9849d1bdacfdff6c3548972504f9
   languageName: node
   linkType: hard
 
