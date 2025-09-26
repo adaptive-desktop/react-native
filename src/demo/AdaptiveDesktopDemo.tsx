@@ -3,7 +3,6 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { WorkspaceFactory } from '@adaptive-desktop/adaptive-workspace';
 import { idGenerator } from '../utils/idGenerator';
 import { WorkspaceView } from '../components';
-import { createWorkspaceConfig } from '../utils';
 
 export const AdaptiveDesktopDemo: React.FC = () => {
   const dimensions = Dimensions.get('window');

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.2.0 - 2025-09-26
+
+- BREAKING: Remove static WorkspaceFactory.create, use instance methods and idGenerator everywhere
+- All tests and stories now use WorkspaceFactory.fromSnapshot or instance .create()
+- Demo and stories updated for new workspace API
+- Improved Storybook device/orientation switching and snapshot loading
+- Lint, type, and test fixes for new workspace API
+- Removed legacy test utils and static JSON snapshot loading
+- Upgraded @adaptive-desktop/adaptive-workspace to v0.7.4
+
 ## v0.1.1 - 2025-09-12
 
 - Added `.github/copilot-instructions.md` and improved project documentation
