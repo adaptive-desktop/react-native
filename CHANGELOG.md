@@ -1,3 +1,8 @@
+# v0.3.0 - 2025-09-26
+
+- Feature: Workspace viewports now automatically update when the screen size or orientation changes
+- No breaking changes; fully backward compatible
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
