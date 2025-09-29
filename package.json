@@ -51,10 +51,10 @@
     "react-test-renderer": "19.1.0"
   },
   "peerDependencies": {
+    "expo": ">=50.0.0",
     "react": ">=19.1.0 <20",
     "react-dom": ">=19.1.0 <20",
-    "react-native": ">=0.74.0 <1",
-    "expo": ">=50.0.0"
+    "react-native": ">=0.74.0 <1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
