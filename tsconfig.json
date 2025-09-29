@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-  "strict": true,
-  "jsx": "react-jsx",
-  "esModuleInterop": true,
-  "skipLibCheck": true,
-  "lib": ["esnext"],
-  "types": ["jest", "@testing-library/jest-native", "node"]
+    "strict": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["esnext"],
+    "types": ["jest", "@testing-library/jest-native", "node"]
   },
   "exclude": [
     "**/*.stories.*",

@@ -1,6 +1,6 @@
 {
   "name": "@adaptive-desktop/react-native",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "React Native components for building adaptive desktop layouts with flexible workspace management",
   "license": "Apache-2.0",
   "author": "Adaptive Desktop Team",

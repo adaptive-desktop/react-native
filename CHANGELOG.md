@@ -1,3 +1,11 @@
+# v0.3.2 - 2025-09-28
+
+- Fixed TypeScript build for library output:
+  - Added react-native as a devDependency for type checking
+  - Updated tsconfig to avoid DOM type conflicts (lib: ["esnext"], skipLibCheck)
+  - Removed 'react-native' from types array
+- Library now builds cleanly for consumers and CI
+
 # v0.3.1 - 2025-09-28
 
 - Moved react, react-dom, react-native, and expo to peerDependencies to prevent version conflicts
