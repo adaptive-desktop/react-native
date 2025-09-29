@@ -4473,7 +4473,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19":
+"@types/react@npm:*":
+  version: 19.1.15
+  resolution: "@types/react@npm:19.1.15"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/f72cb36cb12a0c8aeba4df5a52d6b8a66509983c109201582c156676e8f1a6f5f2b74103f996ae756a04154d3722154350bd606cb87df211bbacda93139225b2
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19":
   version: 19.1.12
   resolution: "@types/react@npm:19.1.12"
   dependencies:

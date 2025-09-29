@@ -71,21 +71,5 @@ describe('WorkspaceView', () => {
 
   // WorkspaceView is now a pure background container; integration tests for viewport rendering are handled elsewhere.
 
-  describe.skip('Error Handling', () => {
-    it('handles workspace with invalid bounds gracefully', () => {
-      const factory = new WorkspaceFactory(idGenerator);
-      const snapshot = loadDesktopSnapshot();
-      // Optionally clone the snapshot to avoid mutating shared data
-      const testBounds = { x: 0, y: 0, width: 0, height: 0 };
-      // If snapshot has a screenBounds property, override it
-      if ('screenBounds' in snapshot) {
-        (
-          snapshot as unknown as { screenBounds: typeof testBounds }
-        ).screenBounds = testBounds;
-      }
-      const workspace = factory.fromSnapshot(snapshot, testBounds);
 
-      expect(() => renderWorkspaceView(workspace)).not.toThrow();
-    });
-  });
 });
