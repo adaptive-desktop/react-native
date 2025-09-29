@@ -1,3 +1,10 @@
+# v0.3.1 - 2025-09-28
+
+- Moved react, react-dom, react-native, and expo to peerDependencies to prevent version conflicts
+- Updated minimum expo peerDependency to 50.0.0 (React 19 support)
+- Ensured peerDependency ranges match supported versions
+- No breaking changes; safe for all consumers
+
 # v0.3.0 - 2025-09-26
 
 - Feature: Workspace viewports now automatically update when the screen size or orientation changes

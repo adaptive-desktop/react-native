@@ -4,7 +4,7 @@
 
 [![npm version](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native.svg)](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native)
 
-Current version: **v0.3.0**
+Current version: **v0.3.1**
 
 React Native components for building adaptive desktop layouts with flexible workspace management. Built on the framework-agnostic `@adaptive-desktop/adaptive-workspace` core library.
 
@@ -30,11 +30,11 @@ pnpm add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
 
 
 ```sh
-npm install @adaptive-desktop/react-native@0.3.0 @adaptive-desktop/adaptive-workspace
+npm install @adaptive-desktop/react-native@0.3.1 @adaptive-desktop/adaptive-workspace
 # or
-yarn add @adaptive-desktop/react-native@0.3.0 @adaptive-desktop/adaptive-workspace
+yarn add @adaptive-desktop/react-native@0.3.1 @adaptive-desktop/adaptive-workspace
 # or
-pnpm add @adaptive-desktop/react-native@0.3.0 @adaptive-desktop/adaptive-workspace
+pnpm add @adaptive-desktop/react-native@0.3.1 @adaptive-desktop/adaptive-workspace
 ```
 
 ````
