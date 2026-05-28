@@ -70,6 +70,4 @@ describe('WorkspaceView', () => {
   });
 
   // WorkspaceView is now a pure background container; integration tests for viewport rendering are handled elsewhere.
-
-
 });
