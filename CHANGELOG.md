@@ -1,3 +1,9 @@
+# v0.4.0 - 2026-05-28
+
+- Expo 56-only release contract cleanup for published runtime usage
+- Reduced runtime peerDependencies to required imports only (`react`, `react-native`, `react-native-safe-area-context`)
+- Removed demo component export from the package root entrypoint
+
 # v0.3.2 - 2025-09-28
 
 - Fixed TypeScript build for library output:
