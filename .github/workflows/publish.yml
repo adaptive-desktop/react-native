@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies (immutable)
         run: yarn install --immutable
@@ -40,6 +41,12 @@ jobs:
             exit 1
           fi
           echo "Version check passed: $TAG_VERSION"
+
+      - name: Configure Yarn npm registry
+        run: |
+          yarn config set npmRegistryServer https://registry.npmjs.org
+          yarn config set npmPublishRegistry https://registry.npmjs.org
+          yarn config set npmAlwaysAuth true
 
       - name: Publish to npm
         run: yarn npm publish --access public
