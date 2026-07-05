@@ -4,7 +4,7 @@
 
 [![npm version](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native.svg)](https://badge.fury.io/js/%40adaptive-desktop%2Freact-native)
 
-Current version: **v0.3.2**
+Current version: **v0.5.0**
 
 React Native components for building adaptive desktop layouts with flexible workspace management. Built on the framework-agnostic `@adaptive-desktop/adaptive-workspace` core library.
 
@@ -16,7 +16,7 @@ React Native components for building adaptive desktop layouts with flexible work
 - **⚡ Responsive Updates** - Automatic re-rendering when workspace bounds change
 - **🧪 Fully Tested** - 100% test coverage with comprehensive test suite
 - **📦 TypeScript First** - Complete type safety and IntelliSense support
-- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.6.0
+- **🔧 Framework Agnostic Core** - Built on `@adaptive-desktop/adaptive-workspace` v0.7.4
 
 ## Installation
 
@@ -30,11 +30,11 @@ pnpm add @adaptive-desktop/react-native @adaptive-desktop/adaptive-workspace
 
 
 ```sh
-npm install @adaptive-desktop/react-native@0.3.2 @adaptive-desktop/adaptive-workspace
+npm install @adaptive-desktop/react-native@0.5.0 @adaptive-desktop/adaptive-workspace
 # or
-yarn add @adaptive-desktop/react-native@0.3.2 @adaptive-desktop/adaptive-workspace
+yarn add @adaptive-desktop/react-native@0.5.0 @adaptive-desktop/adaptive-workspace
 # or
-pnpm add @adaptive-desktop/react-native@0.3.2 @adaptive-desktop/adaptive-workspace
+pnpm add @adaptive-desktop/react-native@0.5.0 @adaptive-desktop/adaptive-workspace
 ```
 
 ````
@@ -354,11 +354,11 @@ The demo demonstrates:
 - Automatic viewport management from snapshot configuration
 - Automatic re-rendering on workspace changes
 - Safe area handling for mobile devices
-- Integration with `@adaptive-desktop/adaptive-workspace` v0.6.0
+- Integration with `@adaptive-desktop/adaptive-workspace` v0.7.4
 
 ## Architecture
 
-This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.6.0:
+This library provides React Native components that integrate with `@adaptive-desktop/adaptive-workspace` v0.7.4:
 
 ### Core Integration Pattern
 

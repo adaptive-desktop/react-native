@@ -1,3 +1,9 @@
+# v0.5.0 - 2026-07-05
+
+- Upgraded project dependencies from Expo SDK 56 to Expo SDK 57
+- Updated React Native runtime/tooling alignment to `react-native@0.86.0`
+- Regenerated dependency lockfile for Expo 57-compatible package set
+
 # v0.4.0 - 2026-05-28
 
 - Expo 56-only release contract cleanup for published runtime usage
