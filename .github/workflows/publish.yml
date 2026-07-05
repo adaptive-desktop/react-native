@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -49,8 +53,6 @@ jobs:
           yarn config set npmAlwaysAuth true
 
       - name: Validate npm token is present
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ -z "$NPM_TOKEN" ]; then
             echo "NPM_TOKEN secret is missing or empty."
@@ -59,9 +61,6 @@ jobs:
           fi
 
       - name: Verify npm authentication
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "Checking npm auth with npm whoami..."
           npm whoami --registry https://registry.npmjs.org || {
@@ -71,15 +70,9 @@ jobs:
           }
 
       - name: Verify publish access to package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "Checking publish access for @adaptive-desktop/react-native..."
           npm access ls-packages --json | node -e "const fs=require('fs');const data=JSON.parse(fs.readFileSync(0,'utf8'));const access=data['@adaptive-desktop/react-native'];if(!access){console.error('Token has no access to @adaptive-desktop/react-native.');console.error('Grant this npm user/team publish rights on the package.');process.exit(1)};console.log('Access level:',access)"
 
       - name: Publish to npm
         run: yarn npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
